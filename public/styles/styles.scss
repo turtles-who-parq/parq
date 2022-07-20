@@ -1,0 +1,171 @@
+body {
+  background-color: #F8F6F2;
+}
+
+@font-face {
+  font-family: 'AirbnbCereal';
+  src: local('Cereal-Bold'), url('../fonts/airbnb-cereal-font/AirbnbCereal_W_Bd.otf') format('otf');
+  src: local('Cereal-Black'), url('../fonts/airbnb-cereal-font/AirbnbCereal_W_Bk.otf') format('otf');
+  src: local('Cereal-Light'), url('../fonts/airbnb-cereal-font/AirbnbCereal_W_Lt.otf') format('otf');
+  src: local('Cereal-Medium'), url('../fonts/airbnb-cereal-font/AirbnbCereal_W_Md.otf') format('otf');
+  src: local('Cereal-Extra-Bold'), url('../fonts/airbnb-cereal-font/AirbnbCereal_W_XBd.otf') format('otf');
+}
+
+.websiteLogo {
+  width: 75%;
+  height: auto;
+}
+
+
+.navBar {
+  border-bottom: .75px solid #36454F;
+  /*padding-top: .5rem;
+  padding-bottom: .5rem;*/
+} 
+
+.topoSearch {
+  border-bottom: .75px solid #36454F;
+  position: relative;
+  overflow: hidden;
+} 
+
+
+img.topo {
+    position: absolute;
+    background-size: contain;
+    top: -350px;
+    margin: auto;
+    opacity: 25%;
+    z-index: 1;
+}
+
+.landingSearch {
+  z-index: 5;
+  width: 35%;
+  background-color: #F8F6F2;
+  position: relative;
+  /*margin: auto;*/
+  padding: 0%;
+
+top: 48%;
+transform: translateY(-50%);
+-ms-transform: translateY(-50%);
+-moz-transform: translateY(-50%);
+-webkit-transform: translateY(-50%);
+-o-transform: translateY(-50%);
+
+left: 50%;
+transform: translateX(-50%);
+-ms-transform: translateX(-50%);
+-moz-transform: translateX(-50%);
+-webkit-transform: translateX(-50%);
+-o-transform: translateX(-50%);
+}
+
+.filterBar {
+  border-bottom: .75px solid #36454F;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  display: flex;
+}
+
+.Search {
+  background-color: #F8F6F2;
+}
+
+.leftMap, .leftArch {
+  border-right: .75px solid #36454F;
+}
+
+div.css-ijx2sl {
+ margin: 0;
+ border-radius: 15px;
+}
+
+.leftArchText {
+  font-family: Helvetica;
+  font-weight: 100;
+  color: #36454F;
+  opacity: 80%;
+  background-color: #F8F6F2;
+  border: 0;
+  font-size: x-large;
+  z-index: 3;
+  margin-left: 40%;
+  margin-top: 150px;
+  position: fixed;
+
+}
+
+.rightArchText {
+  font-family: Helvetica;
+  font-weight: 100;
+  color: #36454F;
+  opacity: 80%;
+  font-size: x-large;
+  z-index: 3;
+  margin-left: 5%;
+  margin-top: 150px;
+  position: fixed;
+  background-color: #F8F6F2;
+  border: 0;
+}
+
+img.archway {
+  display: block;
+  margin: auto;
+  opacity: 100%;
+  width: auto;
+  height: 100%;
+  z-index: 2;
+}
+
+.parkingSpotTileOutter {
+  width: 340px;
+  height: 160px;
+  border-radius: 20px;
+  background: #B9D8D8;
+  border: .75px solid #36454F;
+  padding: 30px 30px 30px 30px;
+  overflow: hidden; 
+  margin-top: 1rem;
+  margin-left: .5rem; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.parkingSpotTileOutter:hover {
+  transform: translateY(-2px);
+  transition: all .3s ease-in-out;
+}
+
+.spotAddress {
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: medium;
+  color:#F8F6F2;
+  text-align: center;
+  z-index: 2;
+}
+
+.tileTopo {
+  position: absolute;
+  background-size: cover;
+  margin: auto;
+  opacity: 50%;
+  top: -150px;
+  left: -10px;
+  z-index: 1;
+}
+
+.rightTiles {
+  scroll-behavior: smooth;
+  overflow-y: scroll; 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
