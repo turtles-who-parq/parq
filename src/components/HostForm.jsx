@@ -32,7 +32,7 @@ export default function HostForm(props) {
         alert('Location saved');
         navigate({
           pathname: '/dashboard',
-          data: response.data,
+          // data: response.data,
         });
       }
       close();

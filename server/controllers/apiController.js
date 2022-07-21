@@ -7,6 +7,7 @@ apiController.createLocation = async (req, res, next) => {
   // When host adds listing, create new location in the db
   try {
     const hostName = res.locals.username;
+    console.log('hostName==>', hostName);
     const { address, price, options, size } = req.body;
     const coordinates = res.locals.coordinates;
 

@@ -37,16 +37,9 @@ router.get('/booking', cookieController.verifyCookie, apiController.getBooking, 
 
 // post requests for new location
 
-router.post(
-  '/location',
-  // cookieController.verifyCookie,
-  googleRequestController.mapLocation,
-  apiController.createLocation,
-  apiController.getAllLocation,
-  (req, res) => {
-    return res.status(200).json(res.locals.result);
-  }
-);
+router.post('/location', cookieController.verifyCookie, googleRequestController.mapLocation, apiController.createLocation, apiController.getAllLocation, (req, res) => {
+  return res.status(200).json(res.locals.result);
+});
 
 // post rquests for new bookings
 
