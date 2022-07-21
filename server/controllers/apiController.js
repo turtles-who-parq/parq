@@ -8,7 +8,7 @@ apiController.createLocation = async (req, res, next) => {
   try {
     const hostName = res.locals.username;
     const { address, price, options, size } = req.body;
-    const coordinates = res.locals.inputLocation;
+    const coordinates = res.locals.coordinates;
 
     //get coords for api
     await Location.create({

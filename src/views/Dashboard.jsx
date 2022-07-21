@@ -80,9 +80,11 @@ export default function Dashboard() {
 
   const handleSubmit = async e => {
     try {
+      let { data: coordinates } = await axios.post('/api/coordinates', { address: address });
+      setHome(coordinates);
+      spotFilter();
       setZoom(15);
       setHomemarker(true);
-      spotFilter();
     } catch (err) {
       console.log(`handleSubmit error==>`, err.response);
     }
@@ -108,18 +110,9 @@ export default function Dashboard() {
 
       setListings(listingsArray);
 
-      let homeCoordinates = await axios.get('/location', { address });
-
-      console.log('homeCoordinatees.data.location==>', homeCoordinates.data.location);
-
-      homeCoordinates = homeCoordinates.data;
-      console.log('homeCoordinates==>', homeCoordinates);
-      setHome(address);
-      setHomemarker(true);
-
       setSpotElems(listingsArray.map((e, i) => <ParkingSpotTest key={i} info={e} {...props} />)); // Waiting for all the requests to get resolved.
     } catch (e) {
-      console.log('spotFilter erro==>', e);
+      console.log('spotFilter erro==>', e.message);
     }
   }
 
@@ -159,11 +152,7 @@ export default function Dashboard() {
                   size='small'
                   onChange={e => setAddress(e.target.value)}
                   InputProps={{
-                    endAdornment: (
-                      <InputAdornment position='start'>
-                        <SearchIcon sx={{ color: '#B9D8D8' }} />
-                      </InputAdornment>
-                    ),
+                    endAdornment: <InputAdornment position='start'>{/* <SearchIcon sx={{ color: '#B9D8D8' }} /> */}</InputAdornment>,
                   }}
                 ></TextField>
               </form>

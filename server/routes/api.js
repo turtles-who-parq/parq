@@ -11,6 +11,10 @@ router.get('/location', apiController.getLocation, (req, res) => {
   return res.status(200).json(res.locals.location);
 });
 
+router.post('/coordinates', googleRequestController.mapLocation, (req, res) => {
+  return res.status(200).json(res.locals.coordinates);
+});
+
 router.get('/all-listings', apiController.getAllLocation, (req, res) => {
   return res.status(200).json(res.locals);
 });
