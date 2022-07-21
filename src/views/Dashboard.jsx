@@ -108,9 +108,12 @@ export default function Dashboard() {
 
       setListings(listingsArray);
 
-      // let homeCoordinates = await axios.get('/location');
-      // homeCoordinates = homeCoordinates.data;
-      // console.log('homeCoordinates==>', homeCoordinates);
+      let homeCoordinates = await axios.get('/location', { address });
+
+      console.log('homeCoordinatees.data.location==>', homeCoordinates.data.location);
+
+      homeCoordinates = homeCoordinates.data;
+      console.log('homeCoordinates==>', homeCoordinates);
       setHome(address);
       setHomemarker(true);
 
