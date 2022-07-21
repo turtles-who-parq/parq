@@ -10,17 +10,17 @@ export const Signup = () => {
   const [lastname, setLastname] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  
+
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
-  
+
   const handleSignup = async e => {
     // const firstname = createfirstname;
     // const lastname = createLastname;
     // const username = createUsername;
     // const password = createPassword;
     e.preventDefault();
-   
+
     let response;
     try {
       response = await axios.post('/api/users/signup', {
@@ -29,7 +29,7 @@ export const Signup = () => {
         username,
         password,
       });
-      console.log('response ==>', response.data);
+
       // if (res.status === 201) {
       setLoggedIn(true);
       navigate('/dashboard');
@@ -85,10 +85,3 @@ export const Signup = () => {
     </Box>
   );
 };
-
-
-
-
-
-
-
