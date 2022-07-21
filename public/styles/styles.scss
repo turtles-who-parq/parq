@@ -29,6 +29,16 @@ body {
   overflow: hidden;
 } 
 
+.topoAbout {
+  // border-bottom: .75px solid #36454F;
+  background-repeat: repeat-y;
+  position: relative;
+  overflow: scroll;
+  font-family: Helvetica;
+  font-weight: 100;
+  color: #36454F;
+} 
+
 
 img.topo {
     position: absolute;
