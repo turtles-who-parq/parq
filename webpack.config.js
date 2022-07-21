@@ -18,35 +18,30 @@ module.exports = {
         test: /\.js$|jsx/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
         },
       },
       {
         test: /\.(css|scss)$/,
         exclude: /(node_modules|bower_components)/,
-        use: [
-          'style-loader',
-          'css-loader', 
-          'sass-loader'
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
-        use: [
-          'url-loader?limit=100000',
-          'img-loader'
-        ],
+        use: ['url-loader?limit=100000', 'img-loader'],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      favicon: './public/favicon.ico'
+      favicon: './public/favicon.ico',
     }),
     new Dotenv(),
   ],
   devServer: {
+    historyApiFallback: true,
+
     port: 8080,
     static: {
       directory: path.resolve(__dirname, './public'),
@@ -69,5 +64,5 @@ module.exports = {
   resolve: {
     // Enable importing JS / JSX files without specifying their extension
     extensions: ['.js', '.jsx'],
-  }
+  },
 };

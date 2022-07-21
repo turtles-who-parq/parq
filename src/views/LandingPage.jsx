@@ -11,7 +11,6 @@ import TextField from '@mui/material/TextField';
 import NavBar from '../components/NavBar';
 
 export default function LandingPage() {
-
   const [address, setAddress] = useState('');
   // const [data, setData] = useState({
   //   lat: 34.052235,
@@ -26,13 +25,13 @@ export default function LandingPage() {
 
     axios
       .post('/api/all', {
-        address: address
+        address: address,
       })
       .then(res => {
         navigate('dashboard', { state: res.data });
       })
       .catch(err => {
-        console.log(`Error occured in useEffect: ${err}`);
+        console.log(`handleSubmit error==>: ${err}`);
       });
   };
 
@@ -55,24 +54,21 @@ export default function LandingPage() {
                   <InputAdornment position='start'>
                     <SearchIcon sx={{ color: '#B9D8D8' }} />
                   </InputAdornment>
-                )
-              }}></TextField>
+                ),
+              }}
+            ></TextField>
           </form>
         </div>
       </div>
 
       <div className='archways' style={{ height: 'calc( 100vh - 440px)' }}>
-        <div
-          className='leftArch'
-          style={{ width: '49%', height: '100%', float: 'left' }}>
+        <div className='leftArch' style={{ width: '49%', height: '100%', float: 'left' }}>
           <Link component={RouterLink} to='/dashboard'>
             <button className='leftArchText'>book</button>
           </Link>
           <img className='archway' src={bookArchway} width='100%'></img>
         </div>
-        <div
-          className='rightArch'
-          style={{ width: '50%', height: '100%', float: 'right' }}>
+        <div className='rightArch' style={{ width: '50%', height: '100%', float: 'right' }}>
           <Link component={RouterLink} to='/dashboard'>
             <button className='rightArchText'>host</button>
           </Link>

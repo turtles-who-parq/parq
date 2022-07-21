@@ -1,45 +1,41 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../public/styles/styles.scss';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import SignupPopup from './SignupPopup.jsx';
 import { Signup } from './Signup.jsx';
 
 export const Login = () => {
-  const [createUsername, setCreateUsername] = useState('');
-  const [createPassword, setCreatePassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleLogin = e => {
-    const username = createUsername;
-    const password = createPassword;
+  const handleLogin = async e => {
+    // const username = username;
+    // const password = password;
     e.preventDefault();
     console.log('handleLogin post called');
+    let response;
+    try {
+      response = await axios.post('/api/users/login', {
+        username,
+        password,
+      });
+      console.log('response==>', response);
 
-    axios
-      .post('/api/users/login', {
-        username: username,
-        password: password
-      })
-      .then(res => {
-        console.log('response from axios:', res);
-        sessionStorage.setItem('access_token', res.data);
-        if (res.status === 201) {
-          setLoggedIn(true);
-        }
-      })
-      .catch(err => console.log(err));
-  };
-
-  if (loggedIn) {
-    setTimeout(() => {
+      //sessionStorage.setItem('access_token', res.data);
+      setLoggedIn(true);
       navigate('/dashboard');
-    }, 0);
-  }
+    } catch (e) {
+      console.log('handleLogin error==>', e);
+    }
+  };
 
   const signupPopup = e => {
     e.preventDefault();
@@ -51,27 +47,14 @@ export const Login = () => {
       <Box
         component='form'
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' }
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
         }}
         noValidate
-        autoComplete='off'>
+        autoComplete='off'
+      >
         <div style={{ display: 'grid', gridTemplateColumns: '1fr' }}>
-          <TextField
-            onChange={e => setCreateUsername(e.target.value)}
-            required
-            id='outlined-required'
-            label='username'
-            defaultValue=''
-          />
-          <TextField
-            onChange={e => setCreatePassword(e.target.value)}
-            required
-            id='outlined-password-input'
-            label='password'
-            type='password'
-            autoComplete='current-password'
-            sx={{}}
-          />
+          <TextField onChange={e => setUsername(e.target.value)} required id='outlined-required' label='username' defaultValue='' />
+          <TextField onChange={e => setPassword(e.target.value)} required id='outlined-password-input' label='password' type='password' autoComplete='current-password' sx={{}} />
           <Button
             onClick={handleLogin}
             type='submit'
@@ -85,7 +68,7 @@ export const Login = () => {
               '&:hover': {
                 backgroundColor: '#BBD1D1',
                 color: '#F8F6F2',
-                boxShadow: 'none'
+                boxShadow: 'none',
               },
               background: '#F8F6F2',
               textTransform: 'none',
@@ -96,8 +79,9 @@ export const Login = () => {
               marginLeft: '.5rem',
               paddingTop: '.75rem',
               paddingBottom: '.75rem',
-              fontWeight: 'bold'
-            }}>
+              fontWeight: 'bold',
+            }}
+          >
             {' '}
             log in
           </Button>
@@ -113,7 +97,7 @@ export const Login = () => {
               '&:hover': {
                 backgroundColor: '#BBD1D1',
                 color: '#F8F6F2',
-                boxShadow: 'none'
+                boxShadow: 'none',
               },
               background: '#F8F6F2',
               textTransform: 'none',
@@ -123,8 +107,9 @@ export const Login = () => {
               marginLeft: '.5rem',
               paddingTop: '.75rem',
               paddingBottom: '.75rem',
-              fontWeight: 'bold'
-            }}>
+              fontWeight: 'bold',
+            }}
+          >
             {' '}
             no account? sign up
           </Button>
