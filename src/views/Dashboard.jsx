@@ -108,6 +108,12 @@ export default function Dashboard() {
 
       setListings(listingsArray);
 
+      // let homeCoordinates = await axios.get('/location');
+      // homeCoordinates = homeCoordinates.data;
+      // console.log('homeCoordinates==>', homeCoordinates);
+      setHome(address);
+      setHomemarker(true);
+
       setSpotElems(listingsArray.map((e, i) => <ParkingSpotTest key={i} info={e} {...props} />)); // Waiting for all the requests to get resolved.
     } catch (e) {
       console.log('spotFilter erro==>', e);
