@@ -13,6 +13,7 @@ const options = {
 };
 
 export default function Map({ data, zoom }) {
+
   const center = {
     lat: data.lat,
     lng: data.lng
