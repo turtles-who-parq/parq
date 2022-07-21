@@ -10,12 +10,11 @@ import AboutPage from './components/AboutPage';
 import LandingPage from './views/LandingPage';
 import Host from './components/Host';
 
-
 const App = () => {
   // Define app state
-  const [ mode, setMode ] = useState('light');
-  const [ auth, setAuth ] = useState(false);
-  const [ user, setUser ] = useState();
+  const [mode, setMode] = useState('light');
+  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState();
 
   // // Get inital state from local storage
   // useEffect(() => {
@@ -37,17 +36,18 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Homepage />
       <Routes>
-        <Route exact path='/' element={<Homepage />} >
-          <Route index element={<LandingPage />} />
-          <Route exact path='Host' element={<Host />} />
-          <Route exact path='Book' element={<Dashboard />} />          
-          <Route exact path='Dashboard' element={<Dashboard />} />
-          <Route exact path='About' element={<AboutPage />} />
-          <Route exact path='Profile' element={<Dashboard />} />
-          <Route exact path='Account' element={<Dashboard />} />
-          <Route exact path='Logout' element={<LandingPage />} />
-        </Route>
+        {/* <exact path='/' element={<Homepage />}> */}
+        <Route index element={<LandingPage />} />
+        <Route exact path='/host' element={<Host />} />
+        <Route exact path='/book' element={<Dashboard />} />
+        <Route exact path='/dashboard' element={<Dashboard />} />
+        <Route exact path='/about' element={<AboutPage />} />
+        <Route exact path='/profile' element={<Dashboard />} />
+        <Route exact path='/account' element={<Dashboard />} />
+        <Route exact path='/logout' element={<LandingPage />} />
+        {/* </Route> */}
       </Routes>
     </ThemeProvider>
   );

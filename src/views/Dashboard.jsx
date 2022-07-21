@@ -48,10 +48,10 @@ export default function Dashboard() {
   // const classes = useStyles();
 
   const [address, setAddress] = useState('');
-  const [zoom, setZoom] = useState(5);
+  const [zoom, setZoom] = useState(4.3);
   const [home, setHome] = useState({
-    lat: 43.65088,
-    lng: -79.36576,
+    lat: 38.9716689,
+    lng: -95.2352501,
   });
   const [listings, setListings] = useState([]);
   const [homeMarker, setHomemarker] = useState(false);
