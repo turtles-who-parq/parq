@@ -5,7 +5,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-export default function HostForm() {
+export default function HostForm(props) {
+  const { close } = props;
+  console.log('props==>', props);
   const [address, setAddress] = useState('');
   const [price, setPrice] = useState(0);
   const [size, setSize] = useState(0);
@@ -14,11 +16,6 @@ export default function HostForm() {
   const navigate = useNavigate();
 
   const handleHost = async e => {
-    // const address = address;
-    // const price = price;
-    // const options = options;
-    // const size = size;
-
     e.preventDefault();
     console.log('handleHost post called');
     let response;
@@ -38,6 +35,7 @@ export default function HostForm() {
           data: response.data,
         });
       }
+      close();
     } catch (e) {
       console.log('handleHost error==>', e);
     }

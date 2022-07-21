@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import SignupPopup from './SignupPopup.jsx';
 import { Signup } from './Signup.jsx';
 
-export const Login = () => {
+export function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
@@ -117,4 +117,4 @@ export const Login = () => {
       </Box>
     );
   } else return <Signup />;
-};
+}

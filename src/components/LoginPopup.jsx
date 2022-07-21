@@ -11,16 +11,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { Login } from './Login.jsx';
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+const LoginDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   '& .MuiDialogActions-root': {
-    padding: theme.spacing(1)
-  }
+    padding: theme.spacing(1),
+  },
 }));
 
-const BootstrapDialogTitle = props => {
+const LoginDialogTitle = props => {
   const { children, onClose, ...other } = props;
 
   return (
@@ -32,9 +32,10 @@ const BootstrapDialogTitle = props => {
         p: 2,
         color: '#BBD1D1',
         fontSize: '800',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
       }}
-      {...other}>
+      {...other}
+    >
       <div className='closeIcon' sx={{ padding: '5px' }}>
         welcome to parq
       </div>
@@ -47,8 +48,9 @@ const BootstrapDialogTitle = props => {
             position: 'absolute',
             right: 8,
             top: 8,
-            color: '#BBD1D1'
-          }}>
+            color: '#BBD1D1',
+          }}
+        >
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -56,9 +58,9 @@ const BootstrapDialogTitle = props => {
   );
 };
 
-BootstrapDialogTitle.propTypes = {
+LoginDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export default function LoginPopup() {
@@ -73,29 +75,25 @@ export default function LoginPopup() {
 
   return (
     <div>
-      <Button onClick={handleClickOpen} color='inherit' sx={{ flexGrow: 1 }}>
+      {/* <Button onClick={handleClickOpen} color='inherit' sx={{ flexGrow: 1 }}>
         <Typography
           variant='h6'
           component='div'
           sx={{
             textTransform: 'none',
             fontWeight: 'light',
-            color: '#36454F'
-          }}>
+            color: '#36454F',
+          }}
+        >
           log In
         </Typography>
-      </Button>
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby='customized-dialog-title'
-        open={open}>
-        <BootstrapDialogTitle
-          id='customized-dialog-title'
-          onClose={handleClose}></BootstrapDialogTitle>
+      </Button> */}
+      <LoginDialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
+        <LoginDialogTitle id='customized-dialog-title' onClose={handleClose}></LoginDialogTitle>
         <DialogContent dividers>
           <Login handleClose={handleClose} />
         </DialogContent>
-      </BootstrapDialog>
+      </LoginDialog>
     </div>
   );
 }

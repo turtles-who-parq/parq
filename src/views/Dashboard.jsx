@@ -14,7 +14,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Maps from '../components/Map';
 import { useEffect, useState } from 'react';
-import LoginPopup from '../components/LoginPopup.jsx';
+//import LoginPopup from '../components/LoginPopup.jsx';
 import AboutPage from '../components/About.jsx';
 import Host from '../components/Host.jsx';
 import ParkingSpotTest from '../components/ParkingSpotTest.jsx';
@@ -25,6 +25,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 
 export default function Dashboard() {
+  //console.log('document.cookies==>', document.cookie);
   // const useStyles = makeStyles(() => ({
   //   textField: {
   //     width: '98%',

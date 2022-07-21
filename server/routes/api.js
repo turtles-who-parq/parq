@@ -1,3 +1,4 @@
+const { RedoTwoTone } = require('@mui/icons-material');
 const express = require('express');
 const router = express.Router();
 
@@ -9,6 +10,10 @@ const googleRequestController = require('../controllers/googleController');
 // get requests for a single location - When user clicks a marker on the map
 router.get('/location', apiController.getLocation, (req, res) => {
   return res.status(200).json(res.locals.location);
+});
+
+router.get('/auth', cookieController.verifyCookie, (req, res) => {
+  return res.sendStatus(200);
 });
 
 router.post('/coordinates', googleRequestController.mapLocation, (req, res) => {
@@ -32,9 +37,16 @@ router.get('/booking', cookieController.verifyCookie, apiController.getBooking, 
 
 // post requests for new location
 
-router.post('/location', cookieController.verifyCookie, googleRequestController.mapLocation, apiController.createLocation, apiController.getAllLocation, (req, res) => {
-  return res.status(200).json(res.locals.result);
-});
+router.post(
+  '/location',
+  // cookieController.verifyCookie,
+  googleRequestController.mapLocation,
+  apiController.createLocation,
+  apiController.getAllLocation,
+  (req, res) => {
+    return res.status(200).json(res.locals.result);
+  }
+);
 
 // post rquests for new bookings
 

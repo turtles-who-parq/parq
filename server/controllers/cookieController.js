@@ -17,6 +17,7 @@ cookieController.setCookie = (req, res, next) => {
   res.cookie('token', token, {
     httpOnly: true,
   });
+  res.cookie('username', username);
   return next();
 };
 
@@ -27,10 +28,15 @@ cookieController.verifyCookie = (req, res, next) => {
   //const token = req.headers.authorization.split(' ')[1];
   const token = req.cookies.token;
   console.log('token:', token);
-  // if (token === null) {
-  //   console.log("no token found!");
-  //   return res.status(403).send("Cannot verify user");
-  // }
+  if (!token) {
+    //console.log('no token found!');
+    return next({
+      log: 'no token found!',
+      status: 403,
+      message: 'no token found!',
+    });
+  }
+
   jwt.verify(token, process.env.JWTPRIVATEKEY, (err, decoded) => {
     if (err) {
       return next({

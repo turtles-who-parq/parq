@@ -10,7 +10,6 @@ const app = express();
 const apiRouter = require('./routes/api');
 const userRouter = require('./routes/user');
 
-
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(express.json());
@@ -28,7 +27,7 @@ mongoose
   .then(() => {
     console.log('Connected to Mongo!');
   })
-  .catch((err) => {
+  .catch(err => {
     console.error('Error connecting to Mongo', err);
   });
 

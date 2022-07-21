@@ -12,11 +12,11 @@ import logo from '../../public/images/blueParq.png';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   '& .MuiDialogActions-root': {
-    padding: theme.spacing(1)
-  }
+    padding: theme.spacing(1),
+  },
 }));
 
 const BootstrapDialogTitle = props => {
@@ -28,9 +28,10 @@ const BootstrapDialogTitle = props => {
         position: 'relative',
         marginLeft: '10rem',
         width: '50%',
-        height: 'auto'
+        height: 'auto',
       }}
-      {...other}>
+      {...other}
+    >
       {children}
       <img className='websiteLogo' src={logo} />
       {onClose ? (
@@ -42,8 +43,9 @@ const BootstrapDialogTitle = props => {
             right: 8,
             top: 8,
             marginLeft: '3rem',
-            color: '#BBD1D1'
-          }}>
+            color: '#BBD1D1',
+          }}
+        >
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -53,7 +55,7 @@ const BootstrapDialogTitle = props => {
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export default function ParkingSpotTest({ info, isVisible }) {
@@ -76,26 +78,23 @@ export default function ParkingSpotTest({ info, isVisible }) {
           </span>
         </div>
         <div>
-          <BootstrapDialog
-            onClose={handleClose}
-            aria-labelledby='customized-dialog-title'
-            open={open}>
-            <BootstrapDialogTitle
-              id='customized-dialog-title'
-              onClose={handleClose}></BootstrapDialogTitle>
+          <BootstrapDialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
+            <BootstrapDialogTitle id='customized-dialog-title' onClose={handleClose}></BootstrapDialogTitle>
             <DialogContent
               dividers
               sx={{
                 fontFamily: 'Helvetica',
                 fontWeight: 'thin',
-                textAlign: 'center'
-              }}>
+                textAlign: 'center',
+              }}
+            >
               <div
                 style={{
                   fontSize: 'x-large',
                   fontWeight: 'bold',
-                  color: '#BBD1D1'
-                }}>
+                  color: '#BBD1D1',
+                }}
+              >
                 ${price}/hr
               </div>
               <br></br>

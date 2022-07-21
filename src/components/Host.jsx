@@ -12,16 +12,16 @@ import HostForm from './HostForm';
 import logo from '../../public/images/blueParq.png';
 import Dashboard from '../views/Dashboard';
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+const HostDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   '& .MuiDialogActions-root': {
-    padding: theme.spacing(1)
-  }
+    padding: theme.spacing(1),
+  },
 }));
 
-const BootstrapDialogTitle = props => {
+const HostDialogTitle = props => {
   const { children, onClose, ...other } = props;
 
   return (
@@ -30,9 +30,10 @@ const BootstrapDialogTitle = props => {
         position: 'relative',
         marginLeft: '10rem',
         width: '50%',
-        height: 'auto'
+        height: 'auto',
       }}
-      {...other}>
+      {...other}
+    >
       {children}
       <img className='websiteLogo' src={logo} />
       {onClose ? (
@@ -43,8 +44,9 @@ const BootstrapDialogTitle = props => {
             position: 'absolute',
             right: 8,
             top: 8,
-            color: '#BBD1D1'
-          }}>
+            color: '#BBD1D1',
+          }}
+        >
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -52,9 +54,9 @@ const BootstrapDialogTitle = props => {
   );
 };
 
-BootstrapDialogTitle.propTypes = {
+HostDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export default function HostPopup() {
@@ -69,18 +71,14 @@ export default function HostPopup() {
   return (
     <>
       <Dashboard />
+      some text
       <div>
-        <BootstrapDialog
-          onClose={handleClose}
-          aria-labelledby='customized-dialog-title'
-          open={open}>
-          <BootstrapDialogTitle
-            id='customized-dialog-title'
-            onClose={handleClose}></BootstrapDialogTitle>
+        <HostDialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
+          <HostDialogTitle id='customized-dialog-title' onClose={handleClose}></HostDialogTitle>
           <DialogContent dividers>
-            <HostForm />
+            <HostForm close={handleClose} />
           </DialogContent>
-        </BootstrapDialog>
+        </HostDialog>
       </div>
     </>
   );
