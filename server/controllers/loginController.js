@@ -8,15 +8,10 @@ loginController.loginUser = async (req, res, next) => {
     const { username } = req.body;
     //verify username
     const user = await User.findOne({ username });
-    if (!user)
-      return res.status(401).send({ message: 'Invalid username or password' });
+    if (!user) return res.status(401).send({ message: 'Invalid username or password' });
     //verify password
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    if (!validPassword)
-      return res.status(401).send({ message: 'Invalid username or password' });
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!validPassword) return res.status(401).send({ message: 'Invalid username or password' });
 
     return next();
   } catch (error) {

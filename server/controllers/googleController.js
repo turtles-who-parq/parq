@@ -5,9 +5,7 @@ const googleRequestController = {};
 
 googleRequestController.mapLocation = (req, res, next) => {
   try {
-    const {
-      address
-    } = req.body;
+    const { address } = req.body;
     console.log('location is:', address);
     // const location = "202 Grand Bld Brentwood NY 11717";
     axios
@@ -17,13 +15,12 @@ googleRequestController.mapLocation = (req, res, next) => {
           key: process.env.GOOGLE_API_KEY,
         },
       })
-      .then((response) => {
-        console.log('response results [0]:', response.data.results[0]);
-        res.locals.data = response.data.results[0].geometry.location;
+      .then(response => {
+        res.locals.inputLocation = response.data.results[0].geometry.location;
         // console.log("Google fetch information:", res.data.data); // these are data from the API call
         return next();
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   } catch (err) {
     return next({
       log: 'googleRequestController.mapLocation: ERROR: Error getting coordinates data from file',
