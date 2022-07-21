@@ -51,11 +51,11 @@ const App = () => {
       <Routes>
         {/* <exact path='/' element={<Homepage />}> */}
         <Route index element={<LandingPage />} />
-        <Route exact path='/host' element={loggedIn ? <Host /> : <LoginPopup />} />
-        <Route exact path='/book' element={<Dashboard />} />
+        <Route exact path='/host' element={loggedIn ? <Host setLoggedIn={setLoggedIn} /> : <LoginPopup setLoggedIn={setLoggedIn} />} />
+        <Route exact path='/book' element={<Dashboard setLoggedIn={setLoggedIn} />} />
         <Route exact path='/dashboard' element={<Dashboard />} />
         <Route exact path='/about' element={<AboutPage />} />
-        <Route exact path='/login' element={<Login />} />
+        <Route exact path='/login' element={<LoginPopup setLoggedIn={setLoggedIn} />} />
         <Route exact path='/account' element={<Dashboard />} />
         <Route exact path='/logout' element={<LandingPage />} />
         {/* </Route> */}

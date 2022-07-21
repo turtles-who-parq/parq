@@ -9,9 +9,10 @@ import SignupPopup from './SignupPopup.jsx';
 import { Signup } from './Signup.jsx';
 
 export function Login(props) {
+  const { close, setLoggedIn } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
+  //const [loggedIn, setLoggedIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
 
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export function Login(props) {
 
       //sessionStorage.setItem('access_token', res.data);
       setLoggedIn(true);
+      close();
       navigate('/dashboard');
     } catch (e) {
       console.log('handleLogin error==>', e);
