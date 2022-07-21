@@ -8,17 +8,35 @@ import Button from '@mui/material/Button';
 import SignupPopup from './SignupPopup.jsx';
 import { Signup } from './Signup.jsx';
 
-export const Login = () => {
+function capitalizeFirstLetters(str) {
+
+  //normalize all letters to lowercase
+  str = str.toLowerCase();
+
+  //split the above string into an array of strings 
+  //whenever a blank space is encountered
+
+  const arr = str.split(' ');
+
+  //loop through each element of the array and capitalize the first letter.
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+  }
+
+  //Join all the elements of the array back into a string 
+  //using a blankspace as a separator 
+  return arr.join(' ');
+}
+
+export const Login = ({ setAuth, setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = async e => {
-    // const username = username;
-    // const password = password;
+
     e.preventDefault();
     console.log('handleLogin post called');
     let response;
@@ -28,9 +46,8 @@ export const Login = () => {
         password,
       });
       console.log('response==>', response);
-
-      //sessionStorage.setItem('access_token', res.data);
-      setLoggedIn(true);
+      setUser(response.firstname + response.lastname);
+      setAuth(true);
       navigate('/dashboard');
     } catch (e) {
       console.log('handleLogin error==>', e);
@@ -53,14 +70,13 @@ export const Login = () => {
         autoComplete='off'
       >
         <div style={{ display: 'grid', gridTemplateColumns: '1fr' }}>
-          <TextField onChange={e => setUsername(e.target.value)} required id='outlined-required' label='username' defaultValue='' />
+          <TextField onChange={e => setUsername(capitalizeFirstLetters(e.target.value))} required id='outlined-required' label='username' defaultValue='' />
           <TextField onChange={e => setPassword(e.target.value)} required id='outlined-password-input' label='password' type='password' autoComplete='current-password' sx={{}} />
           <Button
             onClick={handleLogin}
             type='submit'
             color='primary'
             variant='contained'
-            // style={btnstyle}
             fullWidth
             sx={{
               border: '.75px solid #36454F',
@@ -83,14 +99,13 @@ export const Login = () => {
             }}
           >
             {' '}
-            log in
+            Login
           </Button>
           <Button
             onClick={signupPopup}
             type='submit'
             color='primary'
             variant='contained'
-            // style={btnstyle}
             sx={{
               border: '.75px solid #36454F',
               color: '#BBD1D1',
@@ -111,10 +126,10 @@ export const Login = () => {
             }}
           >
             {' '}
-            no account? sign up
+            No account? Sign up!
           </Button>
         </div>
       </Box>
     );
-  } else return <Signup />;
+  } else return <Signup setAuth={setAuth} setUser={setUser} />;
 };

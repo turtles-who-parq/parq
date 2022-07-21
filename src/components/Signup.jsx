@@ -5,13 +5,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-export const Signup = () => {
+export const Signup = ({ setAuth, setUser }) => {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
-  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async e => {
@@ -29,9 +28,11 @@ export const Signup = () => {
         username,
         password,
       });
+      console.log('Signup Response ==> ', response);
 
       // if (res.status === 201) {
-      setLoggedIn(true);
+      setUser(firstname + lastname);
+      setAuth(true);
       navigate('/dashboard');
       // }
     } catch (e) {
@@ -79,7 +80,7 @@ export const Signup = () => {
           }}
         >
           {' '}
-          create account
+          Create Account
         </Button>
       </div>
     </Box>

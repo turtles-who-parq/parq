@@ -12,24 +12,35 @@ import Host from './components/Host';
 
 
 const App = () => {
+  // Get inital state from local storage
+  const initialMode = localStorage.getItem('mode');
+  const initialUser = localStorage.getItem('user');
+  const initialAuth = localStorage.getItem('auth');
+
   // Define app state
   const [ mode, setMode ] = useState('light');
   const [ auth, setAuth ] = useState(false);
-  const [ user, setUser ] = useState();
+  const [ user, setUser ] = useState('Guest');
 
-  // // Get inital state from local storage
-  // useEffect(() => {
-  //   setMode(JSON.parse(window.localStorage.getItem('mode')));
-  //   setUser(JSON.parse(window.localStorage.getItem('user')));
-  // }, []);
-  // // Persist mode in local storage
-  // useEffect(() => {
-  //   window.localStorage.setItem('mode', mode);
-  // }, [mode]);
-  // // Persist user in local storage
-  // useEffect(() => {
-  //   window.localStorage.setItem('user', user);
-  // }, [user]);
+  useEffect(() => {
+    setMode(initialMode || 'light');
+    setUser(initialUser || 'Guest');
+    if (initialAuth !== undefined)
+      setAuth(JSON.parse(initialAuth));
+  }, []);
+  
+  // Persist mode in local storage
+  useEffect(() => {
+    localStorage.setItem('mode', mode);
+  }, [mode]);
+  // Persist user in local storage
+  useEffect(() => {
+    localStorage.setItem('user', user);
+  }, [user]);
+  // Persist user in local storage
+  useEffect(() => {
+    localStorage.setItem('auth', JSON.stringify(auth));
+  }, [auth]);
 
   // Change between light and dark mode
   const theme = themeParq(mode);
@@ -38,7 +49,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        <Route exact path='/' element={<Homepage />} >
+        <Route exact path='/' element={<Homepage auth={auth} setAuth={setAuth} user={user} setUser={setUser} />} >
           <Route index element={<LandingPage />} />
           <Route exact path='Host' element={<Host />} />
           <Route exact path='Book' element={<Dashboard />} />          

@@ -19,6 +19,10 @@ signupController.signUp = async (req, res, next) => {
       password: hashPassword,
     }).save();
     console.log(newUser);
+    //Pass user first and last name to avatar
+    res.locals.firstname = req.body.firstname;
+    res.locals.lastname = req.body.lastname;
+
     return next();
   } catch (error) {
     res.status(500).send({ messsage: 'error on signupController' });
