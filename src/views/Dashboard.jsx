@@ -29,14 +29,6 @@ export default function Dashboard() {
   const [distance, setDistance] = useState(500);
   const [API_KEY, setAPI_KEY] = useState(null);
 
-  const props = {
-    home,
-    address,
-    zoom,
-    homeMarker,
-    listings,
-  };
-
   useEffect(() => {
     axios.get('/api/all-listings').then(response => {
       const allListings = response.data.allListings;
@@ -48,6 +40,13 @@ export default function Dashboard() {
       console.log('From Dashboard, API_KEY ==> ', response.data);
     });
   }, []);
+  const props = {
+    home,
+    address,
+    zoom,
+    homeMarker,
+    listings,
+  };
 
   const handleChange = event => {
     setDistance(event.target.value);
