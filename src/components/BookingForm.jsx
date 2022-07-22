@@ -52,8 +52,8 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export const BookingForm = ({ hostName, address }) => {
-  const [createDate, setCreateDate] = useState('');
-  const [createLength, setCreateLength] = useState(0);
+  const [date, setDate] = useState('');
+  const [length, setLength] = useState(0);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -62,9 +62,6 @@ export const BookingForm = ({ hostName, address }) => {
   };
 
   const handleBooking = e => {
-    const date = createDate;
-    const length = createLength;
-
     e.preventDefault();
     console.log('handleBooking post called');
     console.log('BOOKING CREATED ------------------------->');
@@ -111,8 +108,8 @@ export const BookingForm = ({ hostName, address }) => {
       >
         <div>
           {' '}
-          <TextField onChange={e => setCreateLength(e.target.value)} required id='outlined-required' label='Length' defaultValue='' />
-          <TextField onChange={e => setCreateDate(e.target.value)} required id='outlined-required' label='Date' defaultValue='' />
+          <TextField onChange={e => setLength(e.target.value)} required id='outlined-required' label='Length' defaultValue='' />
+          <TextField onChange={e => setDate(e.target.value)} required id='outlined-required' label='Date' defaultValue='' />
           <Button
             onClick={handleBooking}
             type='submit'
