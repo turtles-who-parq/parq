@@ -11,14 +11,15 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Login } from './Login.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   '& .MuiDialogActions-root': {
-    padding: theme.spacing(1)
-  }
+    padding: theme.spacing(1),
+  },
 }));
 
 const BootstrapDialogTitle = props => {
@@ -35,8 +36,9 @@ const BootstrapDialogTitle = props => {
             position: 'absolute',
             right: 8,
             top: 8,
-            color: theme => theme.palette.grey[500]
-          }}>
+            color: theme => theme.palette.grey[500],
+          }}
+        >
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -46,13 +48,14 @@ const BootstrapDialogTitle = props => {
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export const BookingForm = ({ hostName, address }) => {
   const [createDate, setCreateDate] = useState('');
   const [createLength, setCreateLength] = useState(0);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setOpen(false);
@@ -64,6 +67,8 @@ export const BookingForm = ({ hostName, address }) => {
 
     e.preventDefault();
     console.log('handleBooking post called');
+    console.log('BOOKING CREATED ------------------------->');
+    console.log('REDIRECTING TO CHECKOUT PAGE -------------------->');
 
     axios
       .post(
@@ -72,17 +77,18 @@ export const BookingForm = ({ hostName, address }) => {
           hostUsername: hostName,
           bookingDate: date,
           length: length,
-          location: address
+          location: address,
         },
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('access_token')}`
-          }
+            Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+          },
         }
       )
       .then(res => {
         if (res.status === 200) {
           alert('Booking has been created');
+          navigate(`/checkoutSession`);
         }
       })
       .catch(err => {
@@ -98,26 +104,15 @@ export const BookingForm = ({ hostName, address }) => {
       <Box
         component='form'
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '20ch' }
+          '& .MuiTextField-root': { m: 1, width: '20ch' },
         }}
         noValidate
-        autoComplete='off'>
+        autoComplete='off'
+      >
         <div>
           {' '}
-          <TextField
-            onChange={e => setCreateLength(e.target.value)}
-            required
-            id='outlined-required'
-            label='Length'
-            defaultValue=''
-          />
-          <TextField
-            onChange={e => setCreateDate(e.target.value)}
-            required
-            id='outlined-required'
-            label='Date'
-            defaultValue=''
-          />
+          <TextField onChange={e => setCreateLength(e.target.value)} required id='outlined-required' label='Length' defaultValue='' />
+          <TextField onChange={e => setCreateDate(e.target.value)} required id='outlined-required' label='Date' defaultValue='' />
           <Button
             onClick={handleBooking}
             type='submit'
@@ -130,7 +125,7 @@ export const BookingForm = ({ hostName, address }) => {
               '&:hover': {
                 backgroundColor: '#BBD1D1',
                 color: '#F8F6F2',
-                boxShadow: 'none'
+                boxShadow: 'none',
               },
               background: '#F8F6F2',
               textTransform: 'none',
@@ -140,8 +135,9 @@ export const BookingForm = ({ hostName, address }) => {
               marginLeft: '.2rem',
               paddingTop: '.75rem',
               paddingBottom: '.75rem',
-              fontWeight: 'bold'
-            }}>
+              fontWeight: 'bold',
+            }}
+          >
             {' '}
             Book
           </Button>
@@ -150,13 +146,8 @@ export const BookingForm = ({ hostName, address }) => {
     );
   } else
     return (
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby='customized-dialog-title'
-        open={open}>
-        <BootstrapDialogTitle
-          id='customized-dialog-title'
-          onClose={handleClose}></BootstrapDialogTitle>
+      <BootstrapDialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
+        <BootstrapDialogTitle id='customized-dialog-title' onClose={handleClose}></BootstrapDialogTitle>
         <DialogContent dividers>
           <Login />
         </DialogContent>
