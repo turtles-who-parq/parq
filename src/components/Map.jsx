@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, DirectionsRenderer } from '@react-google-maps/api';
 import { mapStyles } from '../../public/styles/mapsStyles';
-import axios from 'axios';
 
 const containerStyle = {
   width: '100%',
@@ -15,7 +14,20 @@ const options = {
 
 export default function Map({ home, zoom, homeMarker, listings, API_KEY }) {
   const [directionsResponse, setDirectionsResponse] = useState(null);
-  
+  const [distance, setDistance] = useState('');
+  const [duration, setDuration] = useState('');
+
+  // const homeMarker = (
+  //   <Marker
+  //     key={-1}
+  //     position={center}
+  //     color={'yellow'}
+  //     icon={{
+  //       url: 'http://maps.google.com/mapfiles/kml/pal3/icon23.png',
+  //     }}
+  //   />
+  // );
+
   const markerElems = listings.map((listing, i) => {
     const position = {
       lat: listing.coordinates.lat,
@@ -49,8 +61,6 @@ export default function Map({ home, zoom, homeMarker, listings, API_KEY }) {
   //   setDistance(results.routes[0].legs[0].distance.text);
   //   setDuration(results.routes[0].legs[0].duration.text);
   // }
-  console.log('From Map, API_KEY ==> ', API_KEY);
-
   if (API_KEY)
     return (
       <LoadScript googleMapsApiKey={API_KEY}>
@@ -59,9 +69,9 @@ export default function Map({ home, zoom, homeMarker, listings, API_KEY }) {
           center={home}
           zoom={zoom}
           options={options}
-        // onLoad={() => {
-        //   calculateRoute();
-        // }}
+          // onLoad={() => {
+          //   calculateRoute();
+          // }}
         >
           {homeMarker && (
             <Marker
