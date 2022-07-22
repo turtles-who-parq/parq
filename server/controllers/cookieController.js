@@ -17,7 +17,7 @@ cookieController.verifyCookie = (req, res, next) => {
   console.log('token:', token);
   if (!token) {
     console.log('no token found!');
-    return res.redirect('/api/users/login');
+    return next({message: 'no token found!'});
   }
   jwt.verify(token, process.env.JWTPRIVATEKEY, (err, decoded) => {
     if (err) {
