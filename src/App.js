@@ -10,7 +10,6 @@ import AboutPage from './components/AboutPage';
 import LandingPage from './views/LandingPage';
 import Host from './components/Host';
 
-
 const App = () => {
   // Get inital state from local storage
   const initialMode = localStorage.getItem('mode');
@@ -18,17 +17,16 @@ const App = () => {
   const initialAuth = localStorage.getItem('auth');
 
   // Define app state
-  const [ mode, setMode ] = useState('light');
-  const [ auth, setAuth ] = useState(false);
-  const [ user, setUser ] = useState('Guest');
+  const [mode, setMode] = useState('light');
+  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState('Guest');
 
   useEffect(() => {
     setMode(initialMode || 'light');
     setUser(initialUser || 'Guest');
-    if (initialAuth !== undefined)
-      setAuth(JSON.parse(initialAuth));
+    if (initialAuth !== undefined) setAuth(JSON.parse(initialAuth));
   }, []);
-  
+
   // Persist mode in local storage
   useEffect(() => {
     localStorage.setItem('mode', mode);
@@ -49,10 +47,10 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        <Route exact path='/' element={<Homepage auth={auth} setAuth={setAuth} user={user} setUser={setUser} />} >
+        <Route exact path='/' element={<Homepage auth={auth} setAuth={setAuth} user={user} setUser={setUser} />}>
           <Route index element={<LandingPage />} />
           <Route exact path='Host' element={<Host />} />
-          <Route exact path='Book' element={<Dashboard />} />          
+          <Route exact path='Book' element={<Dashboard />} />
           <Route exact path='Dashboard' element={<Dashboard />} />
           <Route exact path='About' element={<AboutPage />} />
           <Route exact path='Profile' element={<Dashboard />} />

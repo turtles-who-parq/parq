@@ -12,6 +12,20 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Login } from './Login.jsx';
 import { useNavigate } from 'react-router-dom';
+import Calendar from 'react-calendar';
+import '../../public/styles/styles.scss';
+//import 'react-calendar/dist/Calendar.css';
+import Grid from '@mui/material/Grid';
+
+// import DateFnsUtils from '@date-io/date-fns';
+// import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+
+// import List from '@mui/material/List';
+// import ListItem from '@mui/material/ListItem';
+// import ListItemAvatar from '@mui/material/ListItemAvatar';
+// import ListItemIcon from '@mui/material/ListItemIcon';
+// import ListItemText from '@mui/material/ListItemText';
+// import { differenceInDays } from 'date-fns';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -52,10 +66,12 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export const BookingForm = ({ hostName, address }) => {
-  const [date, setDate] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndtDate] = useState(new Date());
   const [length, setLength] = useState(0);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [value, onChange] = useState(new Date());
 
   const handleClose = () => {
     setOpen(false);
@@ -106,8 +122,92 @@ export const BookingForm = ({ hostName, address }) => {
         noValidate
         autoComplete='off'
       >
-        <div>
-          {' '}
+        
+        
+
+
+
+        <Grid container justifyContent='space-around' alignItems='center' style={{ paddingTop: '-10vh' }}>
+          <Grid item md={6}>
+            <div className='startDate'>
+
+            <Typography sx={{ mt: 4, mb: 2 }} variant='h7' style={{ paddingTop: '5px' }} component='div'>
+              Start Date
+            </Typography>
+
+
+
+
+
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Grid container justifyContent='space-around'>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant='inline'
+                    format='MM/dd/yyy'
+                    margin='normal'
+                    id='date-picker'
+                    label='Check-in Date'
+                    value={startDate}
+                    onChange={handleStartDate}
+                    KeyboardButtonProps={{ 'aria-label': 'change date' }}
+                  ></KeyboardDatePicker>
+                </Grid>
+              </MuiPickersUtilsProvider>
+            </div>
+            <div className='endDate'>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Grid container justifyContent='space-around'>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant='inline'
+                    format='MM/dd/yyy'
+                    margin='normal'
+                    id='date-picker'
+                    label='Check-out Date'
+                    value={endDate}
+                    onChange={handleEndDate}
+                    KeyboardButtonProps={{ 'aria-label': 'change date' }}
+                  ></KeyboardDatePicker>
+                </Grid>
+              </MuiPickersUtilsProvider>
+            </div>
+          </Grid>
+          <Grid item md={2}>
+            <Typography sx={{ mt: 4, mb: 2 }} variant='h7' style={{ paddingTop: '-48px' }} component='div'>
+              Price List
+            </Typography>
+            <Demo>
+              <List>
+                <ListItem>
+                  <ListItemIcon>
+                    <PetsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Dog' secondary='$50 per night' />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <PetsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Cat' secondary='$40 per night' />
+                </ListItem>
+              </List>
+            </Demo>
+          </Grid>
+          <Grid item md={2}></Grid>
+        </Grid>
+
+
+
+
+
+
+
+
+          <div>
+          <Calendar onChange={onChange} value={value} />
+          </div>
+          
           <TextField onChange={e => setLength(e.target.value)} required id='outlined-required' label='Length' defaultValue='' />
           <TextField onChange={e => setDate(e.target.value)} required id='outlined-required' label='Date' defaultValue='' />
           <Button
