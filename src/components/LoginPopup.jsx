@@ -73,7 +73,7 @@ export default function LoginPopup({ setAuth, setUser }) {
 
   return (
     <div>
-      <Button onClick={handleClickOpen} color='inherit' sx={{ flexGrow: 1 }}>
+      <Button onClick={handleClickOpen} variant='contained' color='secondary' sx={{ flexGrow: 1 }}>
         <Typography
           variant='h6'
           component='div'

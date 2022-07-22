@@ -5,7 +5,6 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import SignupPopup from './SignupPopup.jsx';
 import { Signup } from './Signup.jsx';
 
 function capitalizeFirstLetters(str) {
@@ -46,7 +45,7 @@ export const Login = ({ setAuth, setUser }) => {
         password,
       });
       console.log('response==>', response);
-      setUser(response.firstname + response.lastname);
+      setUser(response.data.firstname + ' ' + response.data.lastname);
       setAuth(true);
       navigate('/dashboard');
     } catch (e) {

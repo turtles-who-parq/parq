@@ -1,7 +1,6 @@
 require('dotenv').config();
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -37,7 +36,6 @@ module.exports = {
       template: './src/index.html',
       favicon: './public/favicon.ico',
     }),
-    new Dotenv(),
   ],
   devServer: {
     historyApiFallback: true,

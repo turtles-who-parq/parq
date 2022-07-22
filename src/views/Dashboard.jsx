@@ -1,51 +1,22 @@
 import React from 'react';
-
-import Link from '@mui/material/Link';
-import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
-import logo from '../../public/images/blueParq.png';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-// import { makeStyles } from '@mui/material/styles';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Maps from '../components/Map';
 import { useEffect, useState } from 'react';
-import LoginPopup from '../components/LoginPopup.jsx';
-import AboutPage from '../components/About.jsx';
-import Host from '../components/Host.jsx';
 import ParkingSpotTest from '../components/ParkingSpotTest.jsx';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Dashboard() {
-  // const useStyles = makeStyles(() => ({
-  //   textField: {
-  //     width: '98%',
-  //     height: '50%',
-  //     marginLeft: 'auto',
-  //     marginRight: 'auto',
-  //     paddingBottom: 0,
-  //     marginTop: 0,
-  //     fontWeight: 500,
-  //     borderRadius: 0
-  //   },
-  //   overrides: {
-  //     border: 0,
-  //     borderRadius: 20
-  //   },
-  //   input: {
-  //     color: 'white'
-  //   }
-  // }));
-
-  // const classes = useStyles();
 
   const [address, setAddress] = useState('');
   const [zoom, setZoom] = useState(5);
@@ -57,11 +28,11 @@ export default function Dashboard() {
   const [homeMarker, setHomemarker] = useState(false);
   const [spotElems, setSpotElems] = useState([]);
   const [distance, setDistance] = useState(500);
+  const [API_KEY, setAPI_KEY] = useState(null);
 
   const props = {
     home,
     address,
-    //isVisible: true,
     zoom,
     homeMarker,
     listings,
@@ -72,19 +43,24 @@ export default function Dashboard() {
       const allListings = response.data.allListings;
       setListings(allListings);
     });
+    // Get GOOGLE_API_KEY from backend
+    axios.get('/api/key').then(response => {
+      setAPI_KEY(response.data);
+      console.log('From Dashboard, API_KEY ==> ', response.data);
+    });
   }, []);
 
   const handleChange = event => {
     setDistance(event.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async () => {
     try {
       setZoom(15);
       setHomemarker(true);
       spotFilter();
     } catch (err) {
-      console.log(`handleSubmit error==>`, err.response);
+      console.log('handleSubmit error ==> ', err.response);
     }
   };
 
@@ -98,8 +74,7 @@ export default function Dashboard() {
 
       const requests = allListings.map(async listing => {
         const range = await calculateDistance(address, listing.coordinates);
-
-        return range < distance ? listing : undefined;
+        if (range < distance) return listing;
       });
 
       let listingsArray = await Promise.all(requests);
@@ -133,30 +108,29 @@ export default function Dashboard() {
   return (
     <>
       <div className='filterBar' style={{ height: '100px' }} sx={{ flexGrow: 1 }}>
-        <div className='leftFilter' style={{ width: '60%', float: 'left', marginLeft: '10px' }}>
-          <Typography marginLeft={'2px'} color='text.primary'>
-            Please enter your location to see nearby parking spots.
-          </Typography>
-          <Grid container justifyContent='start' alignItems='center' style={{ paddingBottom: '7vh' }}>
-            <Grid item>
+        <div className='leftFilter' style={{ flexGrow: '1', float: 'left', marginLeft: '10px' }}>
+          <Grid container justifyContent='start' alignItems='center' style={{ paddingTop: '1vh', paddingBottom: '1vh' }}>
+            <Grid item >
+              
               <form>
-                <TextField
-                  style={{ width: '400px' }}
-                  id='standard-search'
-                  variant='outlined'
-                  label='city, state, zip code'
-                  // className={classes.textField}
-                  value={address}
-                  size='small'
-                  onChange={e => setAddress(e.target.value)}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position='start'>
-                        <SearchIcon sx={{ color: '#B9D8D8' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                ></TextField>
+                <Tooltip title='Enter your desired parking location to see nearby parking spots' placement='bottom'>
+                  <TextField
+                    style={{ width: '400px' }}
+                    id='standard-search'
+                    variant='outlined'
+                    label='city, state, zip code'
+                    value={address}
+                    size='small'
+                    onChange={e => setAddress(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position='start'>
+                          <SearchIcon sx={{ color: '#B9D8D8' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  ></TextField>
+                </Tooltip>
               </form>
             </Grid>
             <Grid item>
@@ -183,58 +157,53 @@ export default function Dashboard() {
                     fontSize: '9',
                   }}
                 >
-                  search
+                  Search
                 </Typography>
               </Button>
             </Grid>
           </Grid>
         </div>
-
-        <div className='rightFilter' style={{ width: '40%', float: 'right' }}>
-          <Button className='filterPrice' color='inherit' sx={{ width: 10 }}>
-            <Typography
-              // variant="h6"
-              component='div'
-              sx={{
-                textTransform: 'none',
-                fontWeight: 'light',
-                color: '#36454F',
-              }}
-            >
-              price
-            </Typography>
-          </Button>
-          <Button className='filterPrice' color='inherit' sx={{ width: 10 }}>
-            <Typography
-              // variant="h6"
-              component='div'
-              sx={{
-                textTransform: 'none',
-                fontWeight: 'light',
-                color: '#36454F',
-              }}
-            >
-              size
-            </Typography>
-          </Button>
-          <Button className='filterPrice' color='inherit' sx={{ width: 10 }}>
-            <Typography
-              // variant="h6"
-              component='div'
-              sx={{
-                textTransform: 'none',
-                fontWeight: 'light',
-                color: '#36454F',
-              }}
-            >
-              type
-            </Typography>
-          </Button>
+        <div style={{height: '100px', flexGrow: '1', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <ButtonGroup variant='contained' className='rightFilter' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '40%', float: 'right' }}>
+            <Button className='filterPrice' sx={{  }}>
+              <Typography
+                variant="h6"
+                component='div'
+                sx={{
+                  textTransform: 'none'
+                }}
+              >
+              Price
+              </Typography>
+            </Button>
+            <Button className='filterPrice' sx={{  }}>
+              <Typography
+                variant="h6"
+                component='div'
+                sx={{
+                  textTransform: 'none'
+                }}
+              >
+              Size
+              </Typography>
+            </Button>
+            <Button className='filterPrice' sx={{  }}>
+              <Typography
+                variant="h6"
+                component='div'
+                sx={{
+                  textTransform: 'none'
+                }}
+              >
+              Type
+              </Typography>
+            </Button>
+          </ButtonGroup>
         </div>
       </div>
       <div className='mapAndTiles' style={{ height: 'calc( 100vh - 145px )' }}>
         <div className='leftMap' style={{ width: '49%', height: '100%', float: 'left' }}>
-          <Maps className='map' {...props} />
+          <Maps className='map' API_KEY={API_KEY} {...props} />
         </div>
         <div className='rightTiles' style={{ width: '50%', height: '100%', float: 'right' }}>
           {spotElems}

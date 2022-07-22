@@ -32,15 +32,15 @@ mongoose
     console.error('Error connecting to Mongo', err);
   });
 
+// routers
+app.use('/api/users', userRouter);
+app.use('/api', apiRouter);
+  
 // Don't serve static files or homepage from Dev Server
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '../dist')));
   app.use('/', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../dist/index.html')));
 }
-
-// routers
-app.use('/api/users', userRouter);
-app.use('/api', apiRouter);
 
 // 404 Catch-All
 app.use('*', (req, res) => res.status(404).send('Not Found'));
