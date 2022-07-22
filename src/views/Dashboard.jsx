@@ -17,7 +17,6 @@ import Grid from '@mui/material/Grid';
 import Tooltip from '@mui/material/Tooltip';
 
 export default function Dashboard() {
-
   const [address, setAddress] = useState('');
   const [zoom, setZoom] = useState(5);
   const [home, setHome] = useState({
@@ -110,8 +109,7 @@ export default function Dashboard() {
       <div className='filterBar' style={{ height: '100px' }} sx={{ flexGrow: 1 }}>
         <div className='leftFilter' style={{ flexGrow: '1', float: 'left', marginLeft: '10px' }}>
           <Grid container justifyContent='start' alignItems='center' style={{ paddingTop: '1vh', paddingBottom: '1vh' }}>
-            <Grid item >
-              
+            <Grid item>
               <form>
                 <Tooltip title='Enter your desired parking location to see nearby parking spots' placement='bottom'>
                   <TextField
@@ -163,39 +161,39 @@ export default function Dashboard() {
             </Grid>
           </Grid>
         </div>
-        <div style={{height: '100px', flexGrow: '1', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <div style={{ height: '100px', flexGrow: '1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <ButtonGroup variant='contained' className='rightFilter' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '40%', float: 'right' }}>
-            <Button className='filterPrice' sx={{  }}>
+            <Button className='filterPrice' sx={{}}>
               <Typography
-                variant="h6"
+                variant='h6'
                 component='div'
                 sx={{
-                  textTransform: 'none'
+                  textTransform: 'none',
                 }}
               >
-              Price
+                Price
               </Typography>
             </Button>
-            <Button className='filterPrice' sx={{  }}>
+            <Button className='filterPrice' sx={{}}>
               <Typography
-                variant="h6"
+                variant='h6'
                 component='div'
                 sx={{
-                  textTransform: 'none'
+                  textTransform: 'none',
                 }}
               >
-              Size
+                Size
               </Typography>
             </Button>
-            <Button className='filterPrice' sx={{  }}>
+            <Button className='filterPrice' sx={{}}>
               <Typography
-                variant="h6"
+                variant='h6'
                 component='div'
                 sx={{
-                  textTransform: 'none'
+                  textTransform: 'none',
                 }}
               >
-              Type
+                Type
               </Typography>
             </Button>
           </ButtonGroup>
