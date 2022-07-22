@@ -31,7 +31,7 @@ export const Signup = ({ setAuth, setUser }) => {
       console.log('Signup Response ==> ', response);
 
       // if (res.status === 201) {
-      setUser(firstname + lastname);
+      setUser(firstname + ' ' + lastname);
       setAuth(true);
       navigate('/dashboard');
       // }

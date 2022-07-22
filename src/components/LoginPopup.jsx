@@ -72,8 +72,8 @@ export default function LoginPopup({ setAuth, setUser }) {
   };
 
   return (
-    <div>
-      <Button onClick={handleClickOpen} variant='contained' color='secondary' sx={{ flexGrow: 1 }}>
+    <>
+      <Button onClick={handleClickOpen} variant='contained' color='secondary' sx={{ flexGrow: 0 }}>
         <Typography
           variant='h6'
           component='div'
@@ -84,7 +84,7 @@ export default function LoginPopup({ setAuth, setUser }) {
           }}>
           Login
         </Typography>
-      </Button>
+      </Button> 
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby='customized-dialog-title'
@@ -93,9 +93,9 @@ export default function LoginPopup({ setAuth, setUser }) {
           id='customized-dialog-title'
           onClose={handleClose}></BootstrapDialogTitle>
         <DialogContent dividers>
-          <Login setAuth={setAuth} setUser={setUser} handleClose={handleClose} />
+          <Login setAuth={setAuth} setUser={setUser} handleClose />
         </DialogContent>
       </BootstrapDialog>
-    </div>
+    </>
   );
 }

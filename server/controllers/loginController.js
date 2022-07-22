@@ -4,22 +4,28 @@ const bcrypt = require('bcryptjs');
 const loginController = {};
 
 loginController.loginUser = async (req, res, next) => {
+  console.log('Reqest ==> ', req.body);
+  const { username, password } = req.body;
+  let foundPassword;
+  console.log('Username ==> ', username);
+  //verify username
   try {
-    const { username } = req.body;
-    //verify username
     const user = await User.findOne({ username });
-    if (!user) return res.status(401).send({ message: 'Invalid username or password' });
-    //verify password
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) return res.status(401).send({ message: 'Invalid username or password' });
+    foundPassword = user.data.password;
     //Pass user first and last name to avatar
-    res.locals.firstname = user.firstname;
-    res.locals.lastname = user.lastname;
-
-    return next();
+    res.locals.firstname = user.data.firstname;
+    res.locals.lastname = user.data.lastname;
+    console.log('Query response ==> ', user);
   } catch (error) {
-    res.status(500).send({ message: 'Internal Server Error' });
+    next({ message: 'Invalid username' , log: 'Invalid username: ' + JSON.stringify(error)});
   }
+  try {
+    //verify password
+    await bcrypt.compare(password, foundPassword);
+  } catch (error) {
+    next({ message: 'Invalid password' , log: 'Invalid password ' + JSON.stringify(error)});
+  }
+  return next();
 };
 
 // loginController.createToken = (req, res, next) => {

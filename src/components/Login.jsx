@@ -37,9 +37,9 @@ export const Login = ({ setAuth, setUser }) => {
   const handleLogin = async e => {
 
     e.preventDefault();
-    console.log('handleLogin post called');
     let response;
     try {
+      console.log('Sending username to login ==> ', username);
       response = await axios.post('/api/users/login', {
         username,
         password,
