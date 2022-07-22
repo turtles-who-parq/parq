@@ -8,7 +8,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-const topoBackground = 'https://source.unsplash.com/k1AFA4N8O0g'; //E1lw_-kDGlE
+const topoBackground = 'https://source.unsplash.com/E1lw_-kDGlE'; // k1AFA4N8O0g
 
 export default function LandingPage() {
   const [address, setAddress] = useState('');
