@@ -4,6 +4,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { capitalizeFirstLetters } from './Login';
 
 export const Signup = ({ setAuth, setUser }) => {
   const [firstname, setFirstname] = useState();
@@ -31,7 +32,8 @@ export const Signup = ({ setAuth, setUser }) => {
       console.log('Signup Response ==> ', response);
 
       // if (res.status === 201) {
-      setUser(firstname + ' ' + lastname);
+      const name = capitalizeFirstLetters(response.data.firstname + ' ' + response.data.lastname);
+      setUser(name);
       setAuth(true);
       navigate('/dashboard');
       // }
