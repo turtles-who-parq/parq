@@ -8,11 +8,10 @@ import Button from '@mui/material/Button';
 import { Signup } from './Signup.jsx';
 
 function capitalizeFirstLetters(str) {
-
   //normalize all letters to lowercase
   str = str.toLowerCase();
 
-  //split the above string into an array of strings 
+  //split the above string into an array of strings
   //whenever a blank space is encountered
 
   const arr = str.split(' ');
@@ -22,8 +21,8 @@ function capitalizeFirstLetters(str) {
     arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
   }
 
-  //Join all the elements of the array back into a string 
-  //using a blankspace as a separator 
+  //Join all the elements of the array back into a string
+  //using a blankspace as a separator
   return arr.join(' ');
 }
 
@@ -35,7 +34,6 @@ export const Login = ({ setAuth, setUser }) => {
   const navigate = useNavigate();
 
   const handleLogin = async e => {
-
     e.preventDefault();
     console.log('handleLogin post called');
     let response;

@@ -18,7 +18,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 export default function Dashboard() {
   const [address, setAddress] = useState('');
-  const [zoom, setZoom] = useState(5);
+  const [zoom, setZoom] = useState(4.4);
   const [home, setHome] = useState({
     lat: 38.9716689,
     lng: -95.2352501,
@@ -135,7 +135,7 @@ export default function Dashboard() {
             <Grid item>
               <FormControl sx={{ m: 1, minWidth: 100 }} size='small'>
                 <InputLabel id='demo-simple-select-autowidth-label'>Distance</InputLabel>
-                <Select style={{ height: '44px' }} labelId='demo-simple-select-autowidth-label' id='demo-simple-select-autowidth' value={distance} onChange={handleChange} label='Age'>
+                <Select style={{ height: '44px' }} labelId='demo-simple-select-autowidth-label' id='demo-simple-select-autowidth' value={distance} onChange={handleChange}>
                   <MenuItem value=''>
                     <em>None</em>
                   </MenuItem>

@@ -35,7 +35,7 @@ export default function HostForm() {
         alert('Location saved');
         navigate({
           pathname: '/dashboard',
-          data: response.data,
+          //data: response.data,
         });
       }
     } catch (e) {

@@ -7,7 +7,9 @@ loginController.loginUser = async (req, res, next) => {
   try {
     const { username } = req.body;
     //verify username
+    console.log('username==>', username);
     const user = await User.findOne({ username });
+    console.log('user==>', user);
     if (!user) return res.status(401).send({ message: 'Invalid username or password' });
     //verify password
     const validPassword = await bcrypt.compare(req.body.password, user.password);
