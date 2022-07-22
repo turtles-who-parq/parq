@@ -43,6 +43,7 @@ export const Login = ({ setAuth, setUser }) => {
       const name = capitalizeFirstLetters(response.data.firstname + ' ' + response.data.lastname);
       setUser(name);
       setAuth(true);
+      close();
       navigate('/dashboard');
     } catch (e) {
       console.log('handleLogin error==>', e);
