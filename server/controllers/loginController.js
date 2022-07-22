@@ -4,18 +4,15 @@ const bcrypt = require('bcryptjs');
 const loginController = {};
 
 loginController.loginUser = async (req, res, next) => {
-  console.log('Reqest ==> ', req.body);
   const { username, password } = req.body;
   let foundPassword;
-  console.log('Username ==> ', username);
-  //verify username
   try {
     const user = await User.findOne({ username });
-    foundPassword = user.data.password;
+    foundPassword = user.password;
     //Pass user first and last name to avatar
-    res.locals.firstname = user.data.firstname;
-    res.locals.lastname = user.data.lastname;
-    console.log('Query response ==> ', user);
+    res.locals.firstname = user.firstname;
+    res.locals.lastname = user.lastname;
+    res.locals.mode = user.mode;
   } catch (error) {
     next({ message: 'Invalid username' , log: 'Invalid username: ' + JSON.stringify(error)});
   }
@@ -27,22 +24,5 @@ loginController.loginUser = async (req, res, next) => {
   }
   return next();
 };
-
-// loginController.createToken = (req, res, next) => {
-//   const { username } = req.body;
-//   const token = username.generateAuthToken();
-//   console.log("Checking Token:", token)
-//   User.updateOne({ username }, { token }, (err, docs) => {
-//     if (err) return next(err);
-//     res.locals.data = token;
-//     console.log("res.locals.data:", res.locals.data)
-//     return next();
-//   });
-// };
-
-// loginController.isLoggedIn = (req, res, next) => {
-//     const {username} = req.body
-//     User.findOne({username})
-// };
 
 module.exports = loginController;

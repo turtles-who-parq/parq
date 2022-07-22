@@ -5,7 +5,8 @@ const cookieController = {};
 
 cookieController.setCookie = (req, res, next) => {
   const { username } = req.body;
-  const token = generateAuthToken(username);
+  const { firstname, lastname, mode } = res.locals;
+  const token = generateAuthToken({ username, firstname, lastname, mode });
   res.cookie('token', token, {
     httpOnly: true,
   });
@@ -14,7 +15,6 @@ cookieController.setCookie = (req, res, next) => {
 
 cookieController.verifyCookie = (req, res, next) => {
   const token = req.cookies.token;
-  console.log('token:', token);
   if (!token) {
     console.log('no token found!');
     return next({message: 'no token found!'});
@@ -27,8 +27,10 @@ cookieController.verifyCookie = (req, res, next) => {
         message: err,
       });
     }
-    console.log('decoded==>', decoded);
     res.locals.username = decoded.username;
+    res.locals.firstname = decoded.firstname;
+    res.locals.lastname = decoded.lastname;
+    res.locals.mode = decoded.mode;
     return next();
   });
 };
@@ -39,8 +41,8 @@ cookieController.logout = (req, res, next) => {
   return next();
 };
 
-function generateAuthToken(username) {
-  const token = jwt.sign({ username: username }, process.env.JWTPRIVATEKEY, {
+function generateAuthToken(user) {
+  const token = jwt.sign(user, process.env.JWTPRIVATEKEY, {
     expiresIn: '1d',
   });
   return token;

@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
 
-const AvatarLogin = ({auth, setAuth, user, setUser }) => {
+const AvatarLogin = ({auth, setAuth, user, setUser, setMode }) => {
 
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -60,7 +60,7 @@ const AvatarLogin = ({auth, setAuth, user, setUser }) => {
     );
   } else {
     return (
-      <LoginPopup setAuth={setAuth} setUser={setUser} />
+      <LoginPopup setAuth={setAuth} setUser={setUser} setMode={setMode} />
     );
   }
 };

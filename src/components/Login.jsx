@@ -22,7 +22,7 @@ export function capitalizeFirstLetters(str) {
   return arr.join(' ');
 }
 
-export const Login = ({ setAuth, setUser }) => {
+export const Login = ({ setAuth, setUser, setMode }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [signUp, setSignUp] = useState(false);
@@ -34,16 +34,14 @@ export const Login = ({ setAuth, setUser }) => {
     e.preventDefault();
     let response;
     try {
-      console.log('Sending username to login ==> ', username);
       response = await axios.post('/api/users/login', {
         username,
         password,
       });
-      console.log('response==>', response);
-      const name = capitalizeFirstLetters(response.data.firstname + ' ' + response.data.lastname);
+      const name = capitalizeFirstLetters(response.firstname + ' ' + response.lastname);
       setUser(name);
       setAuth(true);
-      close();
+      setMode(response.mode);
       navigate('/dashboard');
     } catch (e) {
       console.log('handleLogin error==>', e);
@@ -127,5 +125,5 @@ export const Login = ({ setAuth, setUser }) => {
         </div>
       </Box>
     );
-  } else return <Signup setAuth={setAuth} setUser={setUser} />;
+  } else return <Signup setAuth={setAuth} setUser={setUser} setMode={setMode} />;
 };
