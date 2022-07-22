@@ -16,7 +16,7 @@ googleRequestController.mapLocation = (req, res, next) => {
         },
       })
       .then(response => {
-        res.locals.inputLocation = response.data.results[0].geometry.location;
+        res.locals.coordinates = response.data.results[0].geometry.location;
         // console.log("Google fetch information:", res.data.data); // these are data from the API call
         return next();
       })
