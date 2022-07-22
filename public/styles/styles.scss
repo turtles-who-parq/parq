@@ -1,5 +1,5 @@
 body {
-  background-color: #F8F6F2;
+  background-color: #f8f6f2;
 }
 
 @font-face {
@@ -16,18 +16,17 @@ body {
   height: auto;
 }
 
-
 .navBar {
-  border-bottom: .75px solid #36454F;
+  border-bottom: 0.75px solid #36454f;
   /*padding-top: .5rem;
   padding-bottom: .5rem;*/
-} 
+}
 
 .topoSearch {
-  border-bottom: .75px solid #36454F;
+  border-bottom: 0.75px solid #36454f;
   position: relative;
   overflow: hidden;
-} 
+}
 
 .topoAbout {
   // border-bottom: .75px solid #36454F;
@@ -36,62 +35,62 @@ body {
   overflow: scroll;
   font-family: Helvetica;
   font-weight: 100;
-  color: #36454F;
-} 
-
+  color: #36454f;
+}
 
 img.topo {
-    position: absolute;
-    background-size: contain;
-    opacity: 80%;
-    max-width: 100%;
-    // max-height: 100%;
-    top: -1050px;
-    margin: auto;
-    z-index: 1;
+  position: absolute;
+  background-size: contain;
+  opacity: 80%;
+  max-width: 100%;
+  // max-height: 100%;
+  top: -1050px;
+  margin: auto;
+  z-index: 1;
 }
 
 .landingSearch {
   z-index: 5;
   width: 35%;
-  background-color: #F8F6F2;
+  background-color: #f8f6f2;
   position: relative;
   /*margin: auto;*/
   padding: 0%;
 
-top: 48%;
-transform: translateY(-50%);
--ms-transform: translateY(-50%);
--moz-transform: translateY(-50%);
--webkit-transform: translateY(-50%);
--o-transform: translateY(-50%);
+  top: 48%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
 
-left: 50%;
-transform: translateX(-50%);
--ms-transform: translateX(-50%);
--moz-transform: translateX(-50%);
--webkit-transform: translateX(-50%);
--o-transform: translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
 }
 
 .filterBar {
-  border-bottom: .75px solid #36454F;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+  border-bottom: 0.75px solid #36454f;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   display: flex;
 }
 
 .Search {
-  background-color: #F8F6F2;
+  background-color: #f8f6f2;
 }
 
-.leftMap, .leftArch {
-  border-right: .75px solid #36454F;
+.leftMap,
+.leftArch {
+  border-right: 0.75px solid #36454f;
 }
 
 div.css-ijx2sl {
- margin: 0;
- border-radius: 15px;
+  margin: 0;
+  border-radius: 15px;
 }
 
 img.archway {
@@ -107,12 +106,12 @@ img.archway {
   width: 340px;
   height: 160px;
   border-radius: 20px;
-  background: #B9D8D8;
-  border: .75px solid #36454F;
+  background: #eabe57;
+  border: 0.75px solid #36454f;
   padding: 30px 30px 30px 30px;
-  overflow: hidden; 
+  overflow: hidden;
   margin-top: 1rem;
-  margin-left: .5rem; 
+  margin-left: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,14 +122,14 @@ img.archway {
 
 .parkingSpotTileOutter:hover {
   transform: translateY(-2px);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .spotAddress {
   font-family: Helvetica;
   font-weight: bold;
   font-size: medium;
-  color:#F8F6F2;
+  color: #f8f6f2;
   text-align: center;
   z-index: 2;
 }
@@ -147,7 +146,7 @@ img.archway {
 
 .rightTiles {
   scroll-behavior: smooth;
-  overflow-y: scroll; 
+  overflow-y: scroll;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
