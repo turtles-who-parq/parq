@@ -12,6 +12,9 @@ loginController.loginUser = async (req, res, next) => {
     //verify password
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(401).send({ message: 'Invalid username or password' });
+    //Pass user first and last name to avatar
+    res.locals.firstname = user.firstname;
+    res.locals.lastname = user.lastname;
 
     return next();
   } catch (error) {

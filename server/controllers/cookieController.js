@@ -1,15 +1,7 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const cookieController = {};
-
-// cookieController.setCookie = (req, res, next) => {
-//   const { username } = req.body;
-//   const token = generateAuthToken(username);
-//   res.cookie("access_token", token, {
-//     httpOnly: true,
-//   });
-//   return next();
-// };
 
 cookieController.setCookie = (req, res, next) => {
   const { username } = req.body;
@@ -20,17 +12,13 @@ cookieController.setCookie = (req, res, next) => {
   return next();
 };
 
-//authorization:
-//for FRONTEND: send token in Authorization header: `authorization: Bearer: ${accessToken}`
-
 cookieController.verifyCookie = (req, res, next) => {
-  //const token = req.headers.authorization.split(' ')[1];
   const token = req.cookies.token;
   console.log('token:', token);
-  // if (token === null) {
-  //   console.log("no token found!");
-  //   return res.status(403).send("Cannot verify user");
-  // }
+  if (!token) {
+    console.log('no token found!');
+    return res.redirect('/api/users/login');
+  }
   jwt.verify(token, process.env.JWTPRIVATEKEY, (err, decoded) => {
     if (err) {
       return next({

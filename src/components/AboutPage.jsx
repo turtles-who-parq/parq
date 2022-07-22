@@ -1,52 +1,31 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Signup } from "../components/Signup";
-import topoBackground from "../../public/images/topoBackground.png";
-import EmojiTransportationIcon from "@mui/icons-material/EmojiTransportation";
-import PaidIcon from "@mui/icons-material/Paid";
-import CelebrationIcon from "@mui/icons-material/Celebration";
-import Paper from "@mui/material/Paper";
-
-const item = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  px: 5,
-};
-
-const number = {
-  fontSize: 24,
-  fontFamily: "default",
-  color: "secondary.main",
-  fontWeight: "medium",
-};
-
-const image = {
-  height: 55,
-  my: 4,
-};
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import topoBackground from '../../public/images/topoBackground.png';
+import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
+import PaidIcon from '@mui/icons-material/Paid';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 
 function ProductHowItWorks() {
   return (
     <>
-      <div
+      <Box
         className="topoAbout"
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
+        styles={
+          { backgroundImage: 'url(\'../../public/images/topoBackground.png\')' }
+        }
       >
-        <img
-          className="topo"
+        {/* <img
+          // className="topo"
           src={topoBackground}
           width="100%"
           height="150%"
-        ></img>
+        ></img> */}
         <br></br>
         <Grid
           container
@@ -62,7 +41,7 @@ function ProductHowItWorks() {
             alignItems="center"
             justifyContent="center"
             sx={{
-              bgcolor: "inherit",
+              bgcolor: 'inherit',
             }}
           >
             <Typography
@@ -71,7 +50,7 @@ function ProductHowItWorks() {
               component="h2"
               sx={{ mb: 14 }}
             >
-              Parq like you've never Parqed before
+              Parq like you&apos;ve never Parqed before
             </Typography>
           </Box>
 
@@ -160,7 +139,7 @@ function ProductHowItWorks() {
                   component="h1"
                   sx={{ mb: 14 }}
                 >
-                  Explore your city knowing you can go anywhere you'd like!
+                  Explore your city knowing you can go anywhere you&apos;d like!
                 </Typography>
                 <img
                   src="https://media.istockphoto.com/photos/red-volkswagen-beetle-picture-id477470738?k=20&m=477470738&s=612x612&w=0&h=MJtwRK0kV5b5coZp_fhdkbgqgo8GnPY_jfQt-3sHjZI="
@@ -172,7 +151,7 @@ function ProductHowItWorks() {
           </Grid>
           {/* </Grid> */}
         </Grid>
-      </div>
+      </Box>
     </>
   );
 }

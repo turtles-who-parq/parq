@@ -43,9 +43,11 @@ body {
 img.topo {
     position: absolute;
     background-size: contain;
-    top: -350px;
+    opacity: 80%;
+    max-width: 100%;
+    // max-height: 100%;
+    top: -1050px;
     margin: auto;
-    opacity: 25%;
     z-index: 1;
 }
 
@@ -90,35 +92,6 @@ transform: translateX(-50%);
 div.css-ijx2sl {
  margin: 0;
  border-radius: 15px;
-}
-
-.leftArchText {
-  font-family: Helvetica;
-  font-weight: 100;
-  color: #36454F;
-  opacity: 80%;
-  background-color: #F8F6F2;
-  border: 0;
-  font-size: x-large;
-  z-index: 3;
-  margin-left: 40%;
-  margin-top: 150px;
-  position: fixed;
-
-}
-
-.rightArchText {
-  font-family: Helvetica;
-  font-weight: 100;
-  color: #36454F;
-  opacity: 80%;
-  font-size: x-large;
-  z-index: 3;
-  margin-left: 5%;
-  margin-top: 150px;
-  position: fixed;
-  background-color: #F8F6F2;
-  border: 0;
 }
 
 img.archway {

@@ -8,7 +8,7 @@ router.post('/signup', signupController.signUp, cookieController.setCookie, (req
   res.status(201).send({ message: 'User created successfully' });
 });
 router.post('/login', loginController.loginUser, cookieController.setCookie, (req, res) => {
-  res.status(201).json(res.locals.access_token);
+  res.status(201).json(res.locals);
 });
 
 module.exports = router;

@@ -1,6 +1,13 @@
+require('dotenv').config();
 const { Location, Booking } = require('../models/userModel');
 
 const apiController = {};
+
+// Provide the GOOGLE_API_KEY to the frontend
+apiController.getKey = (req, res, next) => {
+  res.locals.key = process.env.GOOGLE_API_KEY;
+  return next();
+};
 
 // "Create location" controller - Used for adding a listing
 apiController.createLocation = async (req, res, next) => {

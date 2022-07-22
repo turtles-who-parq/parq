@@ -6,6 +6,9 @@ const apiController = require('../controllers/apiController');
 const cookieController = require('../controllers/cookieController');
 const googleRequestController = require('../controllers/googleController');
 
+// provide the GOOGLE_API_KEY to the frontend
+router.get('/key', apiController.getKey, (req, res) => res.status(200).json(res.locals.key));
+
 // get requests for a single location - When user clicks a marker on the map
 router.get('/location', apiController.getLocation, (req, res) => {
   return res.status(200).json(res.locals.location);
