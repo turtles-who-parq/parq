@@ -20,8 +20,8 @@ export default function Dashboard() {
   const [address, setAddress] = useState('');
   const [zoom, setZoom] = useState(5);
   const [home, setHome] = useState({
-    lat: 43.65088,
-    lng: -79.36576,
+    lat: 38.9716689,
+    lng: -95.2352501,
   });
   const [listings, setListings] = useState([]);
   const [homeMarker, setHomemarker] = useState(false);
@@ -53,13 +53,15 @@ export default function Dashboard() {
     setDistance(event.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async e => {
     try {
+      let { data: coordinates } = await axios.post('/api/coordinates', { address: address });
+      setHome(coordinates);
+      spotFilter();
       setZoom(15);
       setHomemarker(true);
-      spotFilter();
     } catch (err) {
-      console.log('handleSubmit error ==> ', err.response);
+      console.log(`handleSubmit error==>`, err.response);
     }
   };
 
