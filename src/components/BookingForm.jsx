@@ -110,6 +110,29 @@ export const BookingForm = ({ hostName, address, price, close }) => {
     checkoutInfo.location = address;
     document.cookie = `checkoutInfo=` + `${JSON.stringify(checkoutInfo)}`;
 
+    axios
+      .post('/checkout', {
+        parking: checkoutInfo,
+      })
+      .then(res => {
+        console.log('res==>', res);
+        // window.location.assign(res.data.url);
+        //navigate(res.data.url);
+        // console.log(res);
+      });
+
+    // fetch('/checkout', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     parking: [{ id: 1, checkoutInfo: checkoutInfo }],
+    //   }),
+    // })
+    //   .then(response => console.log('response==>', response))
+    //   .catch(e => console.log(`error==> ${e}`));
+
     // let jsonTest = await getCookie('checkoutInfo');
 
     // jsonTest = JSON.parse(jsonTest);
