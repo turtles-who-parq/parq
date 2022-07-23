@@ -16,7 +16,7 @@ import logo from '../../public/images/blueParq.png';
 
 const pages = ['Book', 'Host', 'About'];
 
-const NavBar = ({ auth, setAuth, user, setUser }) => {
+const NavBar = ({ auth, setAuth, user, setUser, setMode }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -106,6 +106,7 @@ const NavBar = ({ auth, setAuth, user, setUser }) => {
             setAuth={setAuth}
             user={user}
             setUser={setUser}
+            setMode={setMode}
           />
         </Toolbar>
       </Container>

@@ -17,6 +17,7 @@ import '../../public/styles/datePicker.css';
 //import 'react-calendar/dist/Calendar.css';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import requireAuth from './RequireAuth';
 
 // import DateFnsUtils from '@date-io/date-fns';
 // import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -66,7 +67,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export const BookingForm = ({ hostName, address, price, close }) => {
+const BookingForm = ({ hostName, address, price, close }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndtDate] = useState(new Date());
   const [length, setLength] = useState(0);
@@ -125,62 +126,6 @@ export const BookingForm = ({ hostName, address, price, close }) => {
         .catch(e => {
           console.error(e.error);
         });
-
-    // window.location.assign(res.data.url);
-    //navigate(res.data.url);
-    // console.log(res);
-
-    // fetch('/checkout', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     parking: [{ id: 1, checkoutInfo: checkoutInfo }],
-    //   }),
-    // })
-    //   .then(response => console.log('response==>', response))
-    //   .catch(e => console.log(`error==> ${e}`));
-
-    // let jsonTest = await getCookie('checkoutInfo');
-
-    // jsonTest = JSON.parse(jsonTest);
-
-    // console.log('jsonTest', jsonTest);
-
-    //close();
-    //navigate(`/dashboard`);
-    //*********AUTH check to be added in here ************8
-    //if (!AUTH)  setOpen(true);
-
-    // axios
-    //   .post(
-    //     '/api/booking',
-    //     {
-    //       hostUsername: hostName,
-    //       startDate,
-    //       endDate,
-    //       location: address,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-    //       },
-    //     }
-    //   )
-    //   .then(res => {
-    //     if (res.status === 200) {
-    //       alert('Booking has been created');
-    //       navigate(`/checkoutSession`);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err.response.status);
-    //     if (err.response.status === 403) {
-    //       setOpen(true);
-    //       // alert("Please log in");
-    //     }
-    //   });
   };
   if (!open) {
     return (
@@ -247,11 +192,13 @@ export const BookingForm = ({ hostName, address, price, close }) => {
     );
   } else
     return (
-      <BootstrapDialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
-        <BootstrapDialogTitle id='customized-dialog-title' onClose={handleClose}></BootstrapDialogTitle>
+      <BootstrapDialog onClose={close} aria-labelledby='customized-dialog-title' open={open}>
+        <BootstrapDialogTitle id='customized-dialog-title' onClose={close}></BootstrapDialogTitle>
         <DialogContent dividers>
           <Login />
         </DialogContent>
       </BootstrapDialog>
     );
 };
+
+export default requireAuth(BookingForm);

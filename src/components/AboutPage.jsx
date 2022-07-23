@@ -16,16 +16,16 @@ function ProductHowItWorks() {
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        styles={
-          { backgroundImage: 'url(\'../../public/images/topoBackground.png\')' }
-        }
+        // styles={
+        //   { backgroundImage: 'url(\'../../public/images/topoBackground.png\')' }
+        // }
       >
-        {/* <img
+        <img
           // className="topo"
           src={topoBackground}
           width="100%"
           height="150%"
-        ></img> */}
+        ></img>
         <br></br>
         <Grid
           container

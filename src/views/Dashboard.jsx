@@ -16,7 +16,8 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Tooltip from '@mui/material/Tooltip';
 
-export default function Dashboard() {
+export default function Dashboard({ auth, setReload }) {
+  console.log('setReLoad (dashboard)==>', setReload);
   const [address, setAddress] = useState('');
   const [zoom, setZoom] = useState(4.4);
   const [home, setHome] = useState({
@@ -26,7 +27,7 @@ export default function Dashboard() {
   const [listings, setListings] = useState([]);
   const [homeMarker, setHomemarker] = useState(false);
   const [spotElems, setSpotElems] = useState([]);
-  const [distance, setDistance] = useState(500);
+  const [distance, setDistance] = useState(1609);
   const [API_KEY, setAPI_KEY] = useState(null);
 
   useEffect(() => {
@@ -37,7 +38,6 @@ export default function Dashboard() {
     // Get GOOGLE_API_KEY from backend
     axios.get('/api/key').then(response => {
       setAPI_KEY(response.data);
-      console.log('From Dashboard, API_KEY ==> ', response.data);
     });
   }, []);
   const props = {
@@ -52,16 +52,18 @@ export default function Dashboard() {
     setDistance(event.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async () => {
     try {
-      let { data: coordinates } = await axios.post('/api/coordinates', { address: address });
+      const { data: coordinates } = await axios.post('/api/coordinates', { address: address });
       setHome(coordinates);
       spotFilter();
-      setZoom(15);
+      if (distance === 1609) setZoom(16);
+      if (distance === 3219) setZoom(15);
+      if (distance === 4828) setZoom(14);
       setHomemarker(true);
       document.cookie = `origin=` + `${address}`;
     } catch (err) {
-      console.log(`handleSubmit error==>`, err.response);
+      console.log('handleSubmit error ==> ', err.response);
     }
   };
 
@@ -84,16 +86,13 @@ export default function Dashboard() {
 
       setListings(listingsArray);
 
-      setSpotElems(listingsArray.map((e, i) => <ParkingSpotTest key={i} info={e} {...props} />)); // Waiting for all the requests to get resolved.
+      setSpotElems(listingsArray.map((e, i) => <ParkingSpotTest auth={auth} setReload={setReload} key={i} info={e} {...props} />)); // Waiting for all the requests to get resolved.
     } catch (e) {
-      console.log('spotFilter erro==>', e);
+      console.log('spotFilter erro ==> ', e);
     }
   }
 
   async function calculateDistance(origin, destination) {
-    // if (originRef.current.value === '' || destiantionRef.current.value === '') {
-    //   return;
-    // }
     // eslint-disable-next-line no-undef
     const directionsService = new google.maps.DirectionsService();
     const results = await directionsService.route({
@@ -140,9 +139,9 @@ export default function Dashboard() {
                   <MenuItem value=''>
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={500}>500 meters</MenuItem>
-                  <MenuItem value={1000}>1000 meters</MenuItem>
-                  <MenuItem value={1500}>1500 meters</MenuItem>
+                  <MenuItem value={1609}>1 mi</MenuItem>
+                  <MenuItem value={3219}>2 mi</MenuItem>
+                  <MenuItem value={4828}>3 mi</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

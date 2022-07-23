@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { BookingForm } from './BookingForm.jsx';
+import BookingForm from './BookingForm';
 import logo from '../../public/images/blueParq.png';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -58,7 +58,8 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function ParkingSpotTest({ info, isVisible }) {
+export default function ParkingSpotTest({ info, auth, setReload }) {
+  console.log('setReLoad(parkingSpotTest)==>', setReload);
   const { address, options, price, size, hostName } = info;
   const [open, setOpen] = useState(false);
   const onSpotClick = () => {
@@ -111,7 +112,7 @@ export default function ParkingSpotTest({ info, isVisible }) {
               )} */}
               ${price}/day
               {/* | {options} | {size} cars */}
-              <BookingForm hostName={hostName} address={address} price={price} close={handleClose} />
+              <BookingForm auth={auth} setReload={setReload} hostName={hostName} address={address} price={price} close={handleClose} />
             </DialogContent>
           </BootstrapDialog>
         </div>

@@ -7,48 +7,46 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Signup } from './Signup.jsx';
 
-function capitalizeFirstLetters(str) {
+export function capitalizeFirstLetters(str) {
   //normalize all letters to lowercase
   str = str.toLowerCase();
-
   //split the above string into an array of strings
   //whenever a blank space is encountered
-
   const arr = str.split(' ');
-
   //loop through each element of the array and capitalize the first letter.
   for (let i = 0; i < arr.length; i++) {
     arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
   }
-
   //Join all the elements of the array back into a string
   //using a blankspace as a separator
   return arr.join(' ');
 }
 
-export const Login = ({ setAuth, setUser }) => {
+export const Login = ({ setAuth, setUser, setMode }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [signUp, setSignUp] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleLogin = async e => {
+  const handleLogin = e => {
     e.preventDefault();
-    console.log('handleLogin post called');
-    let response;
-    try {
-      response = await axios.post('/api/users/login', {
+
+    axios
+      .post('/api/users/login', {
         username,
         password,
-      });
-      console.log('response==>', response);
-      setUser(response.data.firstname + ' ' + response.data.lastname);
-      setAuth(true);
-      navigate('/dashboard');
-    } catch (e) {
-      console.log('handleLogin error==>', e);
-    }
+      })
+      .then(response => {
+        console.log(response);
+        const name = capitalizeFirstLetters(response.data.firstname + ' ' + response.data.lastname);
+        console.log('User ==> ', name);
+        setUser(name);
+        setAuth(true);
+        setMode(response.mode);
+        navigate('/dashboard');
+      })
+      .catch(e => console.log('handleLogin error==>', e));
   };
 
   const signupPopup = e => {
@@ -128,5 +126,5 @@ export const Login = ({ setAuth, setUser }) => {
         </div>
       </Box>
     );
-  } else return <Signup setAuth={setAuth} setUser={setUser} />;
+  } else return <Signup setAuth={setAuth} setUser={setUser} setMode={setMode} />;
 };

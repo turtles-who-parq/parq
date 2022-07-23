@@ -53,7 +53,6 @@ apiController.getLocation = (req, res, next) => {
       });
     }
     res.locals.location = docs;
-    console.log(docs);
     return next();
   });
 };
@@ -86,8 +85,6 @@ apiController.createBooking = (req, res, next) => {
   //get input from user request (TBD)
   const username = res.locals.username;
   const { hostUsername, bookingDate, length, location } = req.body;
-  console.log('username:', username);
-  console.log('req', req.body);
   Booking.create(
     {
       clientUsername: username,

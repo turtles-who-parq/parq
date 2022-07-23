@@ -1,20 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import SearchIcon from '@mui/icons-material/Search';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
 import Map2 from '../components/Map2';
 import { useEffect, useState } from 'react';
-import ParkingSpotTest from '../components/ParkingSpotTest.jsx';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
-import Tooltip from '@mui/material/Tooltip';
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -22,7 +10,7 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-export default function Success() {
+function Success() {
   let checkoutInfo = getCookie('checkoutInfo');
 
   let origin = getCookie('origin');
@@ -65,3 +53,5 @@ export default function Success() {
     </div>
   );
 }
+
+export default Success;
