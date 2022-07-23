@@ -111,7 +111,7 @@ export const BookingForm = ({ hostName, address, price, close }) => {
     document.cookie = `checkoutInfo=` + `${JSON.stringify(checkoutInfo)}`;
 
     axios
-      .post('/checkout', {
+      .post('api/checkout', {
         parking: checkoutInfo,
       })
       .then(res => {
@@ -139,7 +139,7 @@ export const BookingForm = ({ hostName, address, price, close }) => {
 
     // console.log('jsonTest', jsonTest);
 
-    close();
+    //close();
     //navigate(`/dashboard`);
     //*********AUTH check to be added in here ************8
     //if (!AUTH)  setOpen(true);

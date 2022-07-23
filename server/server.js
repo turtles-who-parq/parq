@@ -35,7 +35,7 @@ mongoose
 // routers
 app.use('/api/users', userRouter);
 app.use('/api', apiRouter);
-app.use('/checkout', checkoutRouter);
+app.use('/api/checkout', checkoutRouter);
 
 // Don't serve static files or homepage from Dev Server
 if (process.env.NODE_ENV === 'production') {
