@@ -99,7 +99,7 @@ export default function ParkingSpotTest({ info, isVisible }) {
               </div>
               <br></br>
               <div style={{ fontWeight: 'lighter' }}>{address}</div>
-              {size === 1 && (
+              {/* {size === 1 && (
                 <div style={{ fontWeight: 'lighter' }}>
                   {options} | {size} car
                 </div>
@@ -108,8 +108,9 @@ export default function ParkingSpotTest({ info, isVisible }) {
                 <div style={{ fontWeight: 'lighter' }}>
                   {options} | {size} cars
                 </div>
-              )}
-              {/* ${price}/hr | {options} | {size} cars */}
+              )} */}
+              ${price}/day
+              {/* | {options} | {size} cars */}
               <BookingForm hostName={hostName} address={address} price={price} close={handleClose} />
             </DialogContent>
           </BootstrapDialog>

@@ -4,9 +4,7 @@ const router = express.Router();
 const stripeController = require('../controllers/stripeController');
 
 router.post('/', stripeController, (req, res) => {
-  res.status(200).json({
-    message: 'THIS IS STRIPE ROUTEEEEEEEEEEEE',
-  });
+  res.status(200).json(res.locals.link);
 });
 
 module.exports = router;

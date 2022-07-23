@@ -9,6 +9,7 @@ import themeParq from '../public/styles/muiTheme';
 import AboutPage from './components/AboutPage';
 import LandingPage from './views/LandingPage';
 import Host from './components/Host';
+import Success from './views/Success';
 
 const App = () => {
   // Get inital state from local storage
@@ -55,6 +56,7 @@ const App = () => {
           <Route exact path='About' element={<AboutPage />} />
           <Route exact path='Profile' element={<Dashboard />} />
           <Route exact path='Account' element={<Dashboard />} />
+          <Route exact path='Success' element={<Success />} />
           <Route exact path='Logout' element={<LandingPage />} />
         </Route>
       </Routes>

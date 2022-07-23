@@ -95,8 +95,7 @@ export const BookingForm = ({ hostName, address, price, close }) => {
     e.preventDefault();
     console.log('price==>', price);
     console.log('handleBooking post called');
-    console.log('BOOKING CREATED ------------------------->');
-    console.log('REDIRECTING TO CHECKOUT PAGE -------------------->');
+
     //*********** TO STRIP*****************
     //navigate(`/checkoutSession`{checkoutInfo});
     const clientUsername = await getCookie('username');
@@ -104,22 +103,32 @@ export const BookingForm = ({ hostName, address, price, close }) => {
     const checkoutInfo = {};
     checkoutInfo.startDate = startDate.toDateString();
     checkoutInfo.endDate = endDate.toDateString();
-    checkoutInfo.totalDue = price * (differenceInDays(endDate, startDate) + 1) * 100;
+    //checkoutInfo.totalDue = price * (differenceInDays(endDate, startDate) + 1) * 100;
     checkoutInfo.hostUsername = hostName;
     checkoutInfo.clientUsername = clientUsername;
     checkoutInfo.location = address;
-    document.cookie = `checkoutInfo=` + `${JSON.stringify(checkoutInfo)}`;
+    checkoutInfo.priceInCents = price * 100;
+    checkoutInfo.quantity = differenceInDays(endDate, startDate) + 1;
 
-    axios
-      .post('api/checkout', {
-        parking: checkoutInfo,
-      })
-      .then(res => {
-        console.log('res==>', res);
-        // window.location.assign(res.data.url);
-        //navigate(res.data.url);
-        // console.log(res);
-      });
+    document.cookie = `checkoutInfo=` + `${JSON.stringify(checkoutInfo)}`;
+    close(),
+      axios
+        .post('api/checkout', { checkoutInfo })
+        // .then(res => {
+        //   if (res.ok) return res.json();
+        //   return res.json().then(json => Promise.reject(json));
+        // })
+        .then(data => {
+          //console.log('data.data.url==>', data.data.url);
+          window.location = data.data.url;
+        })
+        .catch(e => {
+          console.error(e.error);
+        });
+
+    // window.location.assign(res.data.url);
+    //navigate(res.data.url);
+    // console.log(res);
 
     // fetch('/checkout', {
     //   method: 'POST',

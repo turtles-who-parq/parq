@@ -59,6 +59,7 @@ export default function Dashboard() {
       spotFilter();
       setZoom(15);
       setHomemarker(true);
+      document.cookie = `origin=` + `${address}`;
     } catch (err) {
       console.log(`handleSubmit error==>`, err.response);
     }
