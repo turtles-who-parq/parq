@@ -67,7 +67,7 @@ export const Login = ({ setAuth, setUser }) => {
         autoComplete='off'
       >
         <div style={{ display: 'grid', gridTemplateColumns: '1fr' }}>
-          <TextField onChange={e => setUsername(capitalizeFirstLetters(e.target.value))} required id='outlined-required' label='username' defaultValue='' />
+          <TextField onChange={e => setUsername(e.target.value)} required id='outlined-required' label='username' defaultValue='' />
           <TextField onChange={e => setPassword(e.target.value)} required id='outlined-password-input' label='password' type='password' autoComplete='current-password' sx={{}} />
           <Button
             onClick={handleLogin}

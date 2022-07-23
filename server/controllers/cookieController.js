@@ -9,6 +9,7 @@ cookieController.setCookie = (req, res, next) => {
   res.cookie('token', token, {
     httpOnly: true,
   });
+  res.cookie('username', username);
   return next();
 };
 
@@ -36,6 +37,7 @@ cookieController.verifyCookie = (req, res, next) => {
 //clear cookie on logout:
 cookieController.logout = (req, res, next) => {
   res.clearCookie('token');
+  res.clearCookie('userName');
   return next();
 };
 

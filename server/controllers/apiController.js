@@ -99,9 +99,9 @@ apiController.createBooking = (req, res, next) => {
     (err, docs) => {
       if (err) {
         return next({
-          log: `apiController.getLocation error :${err}`,
+          log: `apiController.createBooking error :${err}`,
           message: {
-            err: 'Error occured in getLocation',
+            err: 'Error occured in createBookingn',
           },
         });
       }

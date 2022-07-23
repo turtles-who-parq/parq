@@ -13,9 +13,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Login } from './Login.jsx';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
-import '../../public/styles/styles.scss';
+import '../../public/styles/datePicker.css';
 //import 'react-calendar/dist/Calendar.css';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
 // import DateFnsUtils from '@date-io/date-fns';
 // import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -25,7 +26,7 @@ import Grid from '@mui/material/Grid';
 // import ListItemAvatar from '@mui/material/ListItemAvatar';
 // import ListItemIcon from '@mui/material/ListItemIcon';
 // import ListItemText from '@mui/material/ListItemText';
-// import { differenceInDays } from 'date-fns';
+import { differenceInDays } from 'date-fns';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -65,52 +66,89 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export const BookingForm = ({ hostName, address }) => {
+export const BookingForm = ({ hostName, address, price, close }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndtDate] = useState(new Date());
   const [length, setLength] = useState(0);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const [value, onChange] = useState(new Date());
+  //const [value, onChange] = useState(new Date());
+
+  async function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  // const checkoutInfo = {};
+  // checkoutInfo.startDate = startDate.toDateString();
+  // checkoutInfo.endDate = endDate.toDateString();
+  // checkoutInfo.totalDue = price * differenceInDays(endDate, startDate) || 0;
+  // checkoutInfo.hostUsername = hostName,
+  // checkoutInfo.clientUsername = clientUsername,
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleBooking = e => {
+  const handleBooking = async e => {
     e.preventDefault();
+    console.log('price==>', price);
     console.log('handleBooking post called');
     console.log('BOOKING CREATED ------------------------->');
     console.log('REDIRECTING TO CHECKOUT PAGE -------------------->');
+    //*********** TO STRIP*****************
+    //navigate(`/checkoutSession`{checkoutInfo});
+    const clientUsername = await getCookie('username');
+    //console.log('differenceInDays(endDate, startDate)==>', differenceInDays(endDate, startDate));
+    const checkoutInfo = {};
+    checkoutInfo.startDate = startDate.toDateString();
+    checkoutInfo.endDate = endDate.toDateString();
+    checkoutInfo.totalDue = price * (differenceInDays(endDate, startDate) + 1);
+    checkoutInfo.hostUsername = hostName;
+    checkoutInfo.clientUsername = clientUsername;
+    checkoutInfo.location = address;
+    document.cookie = `checkoutInfo=` + `${JSON.stringify(checkoutInfo)}`;
 
-    axios
-      .post(
-        '/api/booking',
-        {
-          hostUsername: hostName,
-          bookingDate: date,
-          length: length,
-          location: address,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-          },
-        }
-      )
-      .then(res => {
-        if (res.status === 200) {
-          alert('Booking has been created');
-          navigate(`/checkoutSession`);
-        }
-      })
-      .catch(err => {
-        console.log(err.response.status);
-        if (err.response.status === 403) {
-          setOpen(true);
-          // alert("Please log in");
-        }
-      });
+    // let jsonTest = await getCookie('checkoutInfo');
+
+    // jsonTest = JSON.parse(jsonTest);
+
+    // console.log('jsonTest', jsonTest);
+
+    close();
+    //navigate(`/dashboard`);
+    //*********AUTH check to be added in here ************8
+    //if (!AUTH)  setOpen(true);
+
+    // axios
+    //   .post(
+    //     '/api/booking',
+    //     {
+    //       hostUsername: hostName,
+    //       startDate,
+    //       endDate,
+    //       location: address,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+    //       },
+    //     }
+    //   )
+    //   .then(res => {
+    //     if (res.status === 200) {
+    //       alert('Booking has been created');
+    //       navigate(`/checkoutSession`);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err.response.status);
+    //     if (err.response.status === 403) {
+    //       setOpen(true);
+    //       // alert("Please log in");
+    //     }
+    //   });
   };
   if (!open) {
     return (
@@ -122,123 +160,57 @@ export const BookingForm = ({ hostName, address }) => {
         noValidate
         autoComplete='off'
       >
-        
-        
-
-
-
-        <Grid container justifyContent='space-around' alignItems='center' style={{ paddingTop: '-10vh' }}>
-          <Grid item md={6}>
+        <Grid container justifyContent='space-around' alignItems='center' spaceing='1' style={{ paddingTop: '-10vh' }}>
+          <Grid item md={5}>
             <div className='startDate'>
-
-            <Typography sx={{ mt: 4, mb: 2 }} variant='h7' style={{ paddingTop: '5px' }} component='div'>
-              Start Date
-            </Typography>
-
-
-
-
-
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Grid container justifyContent='space-around'>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant='inline'
-                    format='MM/dd/yyy'
-                    margin='normal'
-                    id='date-picker'
-                    label='Check-in Date'
-                    value={startDate}
-                    onChange={handleStartDate}
-                    KeyboardButtonProps={{ 'aria-label': 'change date' }}
-                  ></KeyboardDatePicker>
-                </Grid>
-              </MuiPickersUtilsProvider>
+              <Typography sx={{ mt: 4, mb: 2 }} variant='h9' style={{ paddingTop: '5px' }} component='div'>
+                Start Date
+              </Typography>
+              <div>
+                <Calendar onChange={setStartDate} value={startDate} />
+              </div>
             </div>
+          </Grid>
+          <Grid item md={5}>
             <div className='endDate'>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Grid container justifyContent='space-around'>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant='inline'
-                    format='MM/dd/yyy'
-                    margin='normal'
-                    id='date-picker'
-                    label='Check-out Date'
-                    value={endDate}
-                    onChange={handleEndDate}
-                    KeyboardButtonProps={{ 'aria-label': 'change date' }}
-                  ></KeyboardDatePicker>
-                </Grid>
-              </MuiPickersUtilsProvider>
+              <Typography sx={{ mt: 4, mb: 2 }} variant='h9' style={{ paddingTop: '5px' }} component='div'>
+                End Date
+              </Typography>
+              <div>
+                <Calendar onChange={setEndtDate} value={endDate} />
+              </div>
             </div>
           </Grid>
-          <Grid item md={2}>
-            <Typography sx={{ mt: 4, mb: 2 }} variant='h7' style={{ paddingTop: '-48px' }} component='div'>
-              Price List
-            </Typography>
-            <Demo>
-              <List>
-                <ListItem>
-                  <ListItemIcon>
-                    <PetsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary='Dog' secondary='$50 per night' />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <PetsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary='Cat' secondary='$40 per night' />
-                </ListItem>
-              </List>
-            </Demo>
-          </Grid>
-          <Grid item md={2}></Grid>
         </Grid>
-
-
-
-
-
-
-
-
-          <div>
-          <Calendar onChange={onChange} value={value} />
-          </div>
-          
-          <TextField onChange={e => setLength(e.target.value)} required id='outlined-required' label='Length' defaultValue='' />
-          <TextField onChange={e => setDate(e.target.value)} required id='outlined-required' label='Date' defaultValue='' />
-          <Button
-            onClick={handleBooking}
-            type='submit'
-            color='primary'
-            variant='contained'
-            // style={btnstyle}
-            sx={{
-              border: '.75px solid #36454F',
-              color: '#BBD1D1',
-              '&:hover': {
-                backgroundColor: '#BBD1D1',
-                color: '#F8F6F2',
-                boxShadow: 'none',
-              },
-              background: '#F8F6F2',
-              textTransform: 'none',
+        <Button
+          onClick={handleBooking}
+          type='submit'
+          color='primary'
+          variant='contained'
+          // style={btnstyle}
+          sx={{
+            border: '.75px solid #36454F',
+            color: '#BBD1D1',
+            '&:hover': {
+              backgroundColor: '#BBD1D1',
+              color: '#F8F6F2',
               boxShadow: 'none',
-              width: '84%',
-              marginBottom: '.5rem',
-              marginLeft: '.2rem',
-              paddingTop: '.75rem',
-              paddingBottom: '.75rem',
-              fontWeight: 'bold',
-            }}
-          >
-            {' '}
-            Book
-          </Button>
-        </div>
+            },
+            background: '#F8F6F2',
+            textTransform: 'none',
+            boxShadow: 'none',
+            width: '84%',
+            marginBottom: '.5rem',
+            marginTop: '1vh',
+            marginLeft: '.2rem',
+            paddingTop: '.75rem',
+            paddingBottom: '.75rem',
+            fontWeight: 'bold',
+          }}
+        >
+          {' '}
+          Proceed to payment
+        </Button>
       </Box>
     );
   } else
