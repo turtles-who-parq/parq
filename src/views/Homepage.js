@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 
 const Homepage = ({ auth, setAuth, user, setUser, setMode }) => {
-
   
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

@@ -16,7 +16,7 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Tooltip from '@mui/material/Tooltip';
 
-export default function Dashboard() {
+export default function Dashboard({ auth }) {
   const [address, setAddress] = useState('');
   const [zoom, setZoom] = useState(5);
   const [home, setHome] = useState({
@@ -82,7 +82,7 @@ export default function Dashboard() {
 
       setListings(listingsArray);
 
-      setSpotElems(listingsArray.map((e, i) => <ParkingSpotTest key={i} info={e} {...props} />)); // Waiting for all the requests to get resolved.
+      setSpotElems(listingsArray.map((e, i) => <ParkingSpotTest auth={auth} key={i} info={e} {...props} />)); // Waiting for all the requests to get resolved.
     } catch (e) {
       console.log('spotFilter erro ==> ', e);
     }

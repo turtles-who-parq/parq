@@ -11,6 +11,7 @@ import LandingPage from './views/LandingPage';
 import Host from './components/Host';
 import axios from 'axios';
 import { capitalizeFirstLetters } from './components/Login';
+import Logout from './components/Logout';
 
 
 const App = () => {
@@ -51,13 +52,13 @@ const App = () => {
       <Routes>
         <Route exact path='/' element={<Homepage auth={auth} setAuth={setAuth} user={user} setUser={setUser} setMode={setMode} />} >
           <Route index element={<LandingPage />} />
-          <Route exact path='Host' element={<Host />} />
-          <Route exact path='Book' element={<Dashboard />} />          
-          <Route exact path='Dashboard' element={<Dashboard />} />
+          <Route exact path='Host' element={<Host auth={auth} /> } />
+          <Route exact path='Book' element={ <Dashboard auth={auth} /> } />          
+          <Route exact path='Dashboard' element={<Dashboard auth={auth} />} />
           <Route exact path='About' element={<AboutPage />} />
-          <Route exact path='Profile' element={<Dashboard />} />
-          <Route exact path='Account' element={<Dashboard />} />
-          <Route exact path='Logout' element={<LandingPage />} />
+          <Route exact path='Profile' element={<Dashboard auth={auth} />} />
+          <Route exact path='Account' element={<Dashboard auth={auth} />} />
+          <Route exact path='Logout' element={<Logout />} />
         </Route>
       </Routes>
     </ThemeProvider>

@@ -10,7 +10,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Login } from './Login.jsx';
+import { Login } from './Login';
+import requireAuth from './RequireAuth';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -49,7 +50,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-export const BookingForm = ({ hostName, address }) => {
+const BookingForm = ({ hostName, address }) => {
   const [createDate, setCreateDate] = useState('');
   const [createLength, setCreateLength] = useState(0);
   const [open, setOpen] = useState(false);
@@ -163,3 +164,5 @@ export const BookingForm = ({ hostName, address }) => {
       </BootstrapDialog>
     );
 };
+
+export default requireAuth(BookingForm);
