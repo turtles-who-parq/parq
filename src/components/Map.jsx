@@ -14,19 +14,6 @@ const options = {
 
 export default function Map({ home, zoom, homeMarker, listings, API_KEY }) {
   const [directionsResponse, setDirectionsResponse] = useState(null);
-  const [distance, setDistance] = useState('');
-  const [duration, setDuration] = useState('');
-
-  // const homeMarker = (
-  //   <Marker
-  //     key={-1}
-  //     position={center}
-  //     color={'yellow'}
-  //     icon={{
-  //       url: 'http://maps.google.com/mapfiles/kml/pal3/icon23.png',
-  //     }}
-  //   />
-  // );
 
   const markerElems = listings.map((listing, i) => {
     const position = {

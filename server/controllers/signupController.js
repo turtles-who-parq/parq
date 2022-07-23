@@ -11,7 +11,7 @@ signupController.signUp = async (req, res, next) => {
     const salt = await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword = await bcrypt.hash(req.body.password, salt);
     //create new user
-    const newUser = await new User({
+    await new User({
       ...req.body,
       password: hashPassword,
       mode: 'light'

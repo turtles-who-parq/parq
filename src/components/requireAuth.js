@@ -10,10 +10,12 @@ function requireAuth(Component) {
       return (
         <Component {...props} />
       );
-    else
+    else {
+      alert('You must be logged in to do this.');
       return (
-        <Logout />
+        <Logout {...props} />
       );
+    }
   }
   return RequireAuth;
 }
