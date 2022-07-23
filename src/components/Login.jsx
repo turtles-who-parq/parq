@@ -10,15 +10,15 @@ import { Signup } from './Signup.jsx';
 export function capitalizeFirstLetters(str) {
   //normalize all letters to lowercase
   str = str.toLowerCase();
-  //split the above string into an array of strings 
+  //split the above string into an array of strings
   //whenever a blank space is encountered
   const arr = str.split(' ');
   //loop through each element of the array and capitalize the first letter.
   for (let i = 0; i < arr.length; i++) {
     arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
   }
-  //Join all the elements of the array back into a string 
-  //using a blankspace as a separator 
+  //Join all the elements of the array back into a string
+  //using a blankspace as a separator
   return arr.join(' ');
 }
 
@@ -30,13 +30,13 @@ export const Login = ({ setAuth, setUser, setMode }) => {
   const navigate = useNavigate();
 
   const handleLogin = e => {
-
     e.preventDefault();
-    
-    axios.post('/api/users/login', {
-      username,
-      password,
-    })
+
+    axios
+      .post('/api/users/login', {
+        username,
+        password,
+      })
       .then(response => {
         console.log(response);
         const name = capitalizeFirstLetters(response.data.firstname + ' ' + response.data.lastname);

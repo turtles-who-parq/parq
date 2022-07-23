@@ -5,20 +5,20 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   firstname: {
     type: String,
-    required: true
+    required: true,
   },
   lastname: {
     type: String,
-    required: true
+    required: true,
   },
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   mode: {
     type: String,
@@ -30,50 +30,51 @@ const userSchema = new Schema({
 const bookingSchema = new Schema({
   clientUsername: {
     type: String,
-    required: true
+    required: true,
   },
   hostUsername: {
     type: String,
-    required: true
+    required: true,
   },
-  bookingDate: {
-    type: String,
-    required: true
+  startDate: {
+    type: Date,
+    required: true,
   },
-  length: {
-    type: Number,
-    required: true
+  endDate: {
+    type: Date,
+    required: true,
   },
+
   location: {
     type: String,
-    required: true
+    required: true,
   },
 });
 
 const locationSchema = new Schema({
   hostName: {
     type: String,
-    required: true
+    required: true,
   },
   address: {
     type: String,
-    required: true
+    required: true,
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   options: {
     type: String,
-    required: true
+    required: true,
   },
   size: {
     type: Number,
-    required: true
+    required: true,
   },
   coordinates: {
     lat: Number,
-    lng: Number
+    lng: Number,
   },
 });
 

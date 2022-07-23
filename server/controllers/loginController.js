@@ -14,13 +14,13 @@ loginController.loginUser = async (req, res, next) => {
     res.locals.lastname = user.lastname;
     res.locals.mode = user.mode;
   } catch (error) {
-    next({ message: 'Invalid username' , log: 'Invalid username: ' + JSON.stringify(error)});
+    next({ message: 'Invalid username', log: 'Invalid username: ' + JSON.stringify(error) });
   }
   try {
     //verify password
     await bcrypt.compare(password, foundPassword);
   } catch (error) {
-    next({ message: 'Invalid password' , log: 'Invalid password ' + JSON.stringify(error)});
+    next({ message: 'Invalid password', log: 'Invalid password ' + JSON.stringify(error) });
   }
   return next();
 };

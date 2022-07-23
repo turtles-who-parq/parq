@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Logout = ({setReload}) => {
+const Logout = ({ setReload }) => {
   const navigate = useNavigate();
   useEffect(() => {
     const clearToken = async () => {
@@ -12,9 +12,7 @@ const Logout = ({setReload}) => {
     setReload(true);
     navigate('/');
   }, []);
-  return (
-    <></>
-  );
+  return <></>;
 };
 
 export default Logout;

@@ -26,12 +26,7 @@ export default function Map({ home, zoom, homeMarker, listings, API_KEY }) {
   if (API_KEY)
     return (
       <LoadScript googleMapsApiKey={API_KEY}>
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={home}
-          zoom={zoom}
-          options={options}
-        >
+        <GoogleMap mapContainerStyle={containerStyle} center={home} zoom={zoom} options={options}>
           {homeMarker && (
             <Marker
               position={home}

@@ -12,11 +12,11 @@ import logo from '../../public/images/blueParq.png';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   '& .MuiDialogActions-root': {
-    padding: theme.spacing(1)
-  }
+    padding: theme.spacing(1),
+  },
 }));
 
 const BootstrapDialogTitle = props => {
@@ -28,9 +28,10 @@ const BootstrapDialogTitle = props => {
         position: 'relative',
         marginLeft: '10rem',
         width: '50%',
-        height: 'auto'
+        height: 'auto',
       }}
-      {...other}>
+      {...other}
+    >
       {children}
       <img className='websiteLogo' src={logo} />
       {onClose ? (
@@ -42,8 +43,9 @@ const BootstrapDialogTitle = props => {
             right: 8,
             top: 8,
             marginLeft: '3rem',
-            color: '#BBD1D1'
-          }}>
+            color: '#BBD1D1',
+          }}
+        >
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -53,10 +55,11 @@ const BootstrapDialogTitle = props => {
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export default function ParkingSpotTest({ info, auth, setReload }) {
+  console.log('setReLoad(parkingSpotTest)==>', setReload);
   const { address, options, price, size, hostName } = info;
   const [open, setOpen] = useState(false);
   const onSpotClick = () => {
@@ -76,31 +79,28 @@ export default function ParkingSpotTest({ info, auth, setReload }) {
           </span>
         </div>
         <div>
-          <BootstrapDialog
-            onClose={handleClose}
-            aria-labelledby='customized-dialog-title'
-            open={open}>
-            <BootstrapDialogTitle
-              id='customized-dialog-title'
-              onClose={handleClose}></BootstrapDialogTitle>
+          <BootstrapDialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
+            <BootstrapDialogTitle id='customized-dialog-title' onClose={handleClose}></BootstrapDialogTitle>
             <DialogContent
               dividers
               sx={{
                 fontFamily: 'Helvetica',
                 fontWeight: 'thin',
-                textAlign: 'center'
-              }}>
+                textAlign: 'center',
+              }}
+            >
               <div
                 style={{
                   fontSize: 'x-large',
                   fontWeight: 'bold',
-                  color: '#BBD1D1'
-                }}>
-                ${price}/hr
+                  color: '#BBD1D1',
+                }}
+              >
+                ${price}/day
               </div>
               <br></br>
               <div style={{ fontWeight: 'lighter' }}>{address}</div>
-              {size === 1 && (
+              {/* {size === 1 && (
                 <div style={{ fontWeight: 'lighter' }}>
                   {options} | {size} car
                 </div>
@@ -109,9 +109,10 @@ export default function ParkingSpotTest({ info, auth, setReload }) {
                 <div style={{ fontWeight: 'lighter' }}>
                   {options} | {size} cars
                 </div>
-              )}
-              {/* ${price}/hr | {options} | {size} cars */}
-              <BookingForm auth={auth} setReload={setReload} hostName={hostName} address={address} />
+              )} */}
+              ${price}/day
+              {/* | {options} | {size} cars */}
+              <BookingForm auth={auth} setReload={setReload} hostName={hostName} address={address} price={price} close={handleClose} />
             </DialogContent>
           </BootstrapDialog>
         </div>

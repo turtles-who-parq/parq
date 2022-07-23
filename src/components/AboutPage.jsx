@@ -20,12 +20,12 @@ function ProductHowItWorks() {
         //   { backgroundImage: 'url(\'../../public/images/topoBackground.png\')' }
         // }
       >
-        <img
+        {/* <img
           // className="topo"
           src={topoBackground}
           width="100%"
           height="150%"
-        ></img>
+        ></img> */}
         <br></br>
         <Grid
           container

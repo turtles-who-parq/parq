@@ -17,8 +17,9 @@ import Grid from '@mui/material/Grid';
 import Tooltip from '@mui/material/Tooltip';
 
 export default function Dashboard({ auth, setReload }) {
+  console.log('setReLoad (dashboard)==>', setReload);
   const [address, setAddress] = useState('');
-  const [zoom, setZoom] = useState(5);
+  const [zoom, setZoom] = useState(4.4);
   const [home, setHome] = useState({
     lat: 38.9716689,
     lng: -95.2352501,
@@ -56,13 +57,11 @@ export default function Dashboard({ auth, setReload }) {
       const { data: coordinates } = await axios.post('/api/coordinates', { address: address });
       setHome(coordinates);
       spotFilter();
-      if (distance === 1609)
-        setZoom(16);
-      if (distance === 3219)
-        setZoom(15);
-      if (distance === 4828)
-        setZoom(14);
+      if (distance === 1609) setZoom(16);
+      if (distance === 3219) setZoom(15);
+      if (distance === 4828) setZoom(14);
       setHomemarker(true);
+      document.cookie = `origin=` + `${address}`;
     } catch (err) {
       console.log('handleSubmit error ==> ', err.response);
     }
@@ -136,7 +135,7 @@ export default function Dashboard({ auth, setReload }) {
             <Grid item>
               <FormControl sx={{ m: 1, minWidth: 100 }} size='small'>
                 <InputLabel id='demo-simple-select-autowidth-label'>Distance</InputLabel>
-                <Select style={{ height: '44px' }} labelId='demo-simple-select-autowidth-label' id='demo-simple-select-autowidth' value={distance} onChange={handleChange} label='Age'>
+                <Select style={{ height: '44px' }} labelId='demo-simple-select-autowidth-label' id='demo-simple-select-autowidth' value={distance} onChange={handleChange}>
                   <MenuItem value=''>
                     <em>None</em>
                   </MenuItem>

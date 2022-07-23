@@ -9,17 +9,17 @@ import themeParq from '../public/styles/muiTheme';
 import AboutPage from './components/AboutPage';
 import LandingPage from './views/LandingPage';
 import Host from './components/Host';
+import Success from './views/Success';
 import axios from 'axios';
 import { capitalizeFirstLetters } from './components/Login';
 import Logout from './components/Logout';
 
-
 const App = () => {
   // Define app state
-  const [ mode, setMode ] = useState('light');
-  const [ auth, setAuth ] = useState(false);
-  const [ user, setUser ] = useState('Guest User');
-  const [ reload, setReload] = useState(false);
+  const [mode, setMode] = useState('light');
+  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState('Guest User');
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     console.log('Reload ==> ', reload);
@@ -57,14 +57,15 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        <Route exact path='/' element={<Homepage auth={auth} setAuth={setAuth} user={user} setUser={setUser} setMode={setMode} />} >
+        <Route exact path='/' element={<Homepage auth={auth} setAuth={setAuth} user={user} setUser={setUser} setMode={setMode} />}>
           <Route index element={<LandingPage />} />
-          <Route exact path='Host' element={<Host auth={auth} setReload={setReload} /> } />
-          <Route exact path='Book' element={ <Dashboard auth={auth} setReload={setReload} /> } />          
+          <Route exact path='Host' element={<Host auth={auth} setReload={setReload} />} />
+          <Route exact path='Book' element={<Dashboard auth={auth} setReload={setReload} />} />
           <Route exact path='Dashboard' element={<Dashboard auth={auth} setReload={setReload} />} />
           <Route exact path='About' element={<AboutPage />} />
           <Route exact path='Profile' element={<Dashboard auth={auth} setReload={setReload} />} />
           <Route exact path='Account' element={<Dashboard auth={auth} setReload={setReload} />} />
+          <Route exact path='Success' element={<Success />} />
           <Route exact path='Logout' element={<Logout setReload={setReload} />} />
         </Route>
       </Routes>
