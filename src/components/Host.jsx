@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import HostForm from './HostForm';
 import logo from '../../public/images/blueParq.png';
 import Dashboard from '../views/Dashboard';
-import requireAuth from './RequireAuth';
+import requireAuth from './requireAuth';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {

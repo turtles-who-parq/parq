@@ -17,7 +17,7 @@ import '../../public/styles/datePicker.css';
 //import 'react-calendar/dist/Calendar.css';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import requireAuth from './RequireAuth';
+import requireAuth from './requireAuth';
 
 // import DateFnsUtils from '@date-io/date-fns';
 // import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';

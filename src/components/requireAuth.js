@@ -3,7 +3,7 @@ import Logout from './Logout';
 
 function requireAuth(Component) {
   console.log('This requires authorization');
-  function RequireAuth(props) {
+  function NeedsAuth(props) {
     const { auth } = props;
     console.log('Auth ==> ', auth);
     if (auth)
@@ -17,6 +17,6 @@ function requireAuth(Component) {
       );
     }
   }
-  return RequireAuth;
+  return NeedsAuth;
 }
 export default requireAuth;
