@@ -11,14 +11,31 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Login } from './Login.jsx';
+import { useNavigate } from 'react-router-dom';
+import Calendar from 'react-calendar';
+import '../../public/styles/datePicker.css';
+//import 'react-calendar/dist/Calendar.css';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import requireAuth from './RequireAuth';
+
+// import DateFnsUtils from '@date-io/date-fns';
+// import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+
+// import List from '@mui/material/List';
+// import ListItem from '@mui/material/ListItem';
+// import ListItemAvatar from '@mui/material/ListItemAvatar';
+// import ListItemIcon from '@mui/material/ListItemIcon';
+// import ListItemText from '@mui/material/ListItemText';
+import { differenceInDays } from 'date-fns';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   '& .MuiDialogActions-root': {
-    padding: theme.spacing(1)
-  }
+    padding: theme.spacing(1),
+  },
 }));
 
 const BootstrapDialogTitle = props => {
@@ -35,8 +52,9 @@ const BootstrapDialogTitle = props => {
             position: 'absolute',
             right: 8,
             top: 8,
-            color: theme => theme.palette.grey[500]
-          }}>
+            color: theme => theme.palette.grey[500],
+          }}
+        >
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -46,120 +64,141 @@ const BootstrapDialogTitle = props => {
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
-export const BookingForm = ({ hostName, address }) => {
-  const [createDate, setCreateDate] = useState('');
-  const [createLength, setCreateLength] = useState(0);
+const BookingForm = ({ hostName, address, price, close }) => {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndtDate] = useState(new Date());
+  const [length, setLength] = useState(0);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  //const [value, onChange] = useState(new Date());
+
+  async function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  // const checkoutInfo = {};
+  // checkoutInfo.startDate = startDate.toDateString();
+  // checkoutInfo.endDate = endDate.toDateString();
+  // checkoutInfo.totalDue = price * differenceInDays(endDate, startDate) || 0;
+  // checkoutInfo.hostUsername = hostName,
+  // checkoutInfo.clientUsername = clientUsername,
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleBooking = e => {
-    const date = createDate;
-    const length = createLength;
-
+  const handleBooking = async e => {
     e.preventDefault();
+    console.log('price==>', price);
     console.log('handleBooking post called');
 
-    axios
-      .post(
-        '/api/booking',
-        {
-          hostUsername: hostName,
-          bookingDate: date,
-          length: length,
-          location: address
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('access_token')}`
-          }
-        }
-      )
-      .then(res => {
-        if (res.status === 200) {
-          alert('Booking has been created');
-        }
-      })
-      .catch(err => {
-        console.log(err.response.status);
-        if (err.response.status === 403) {
-          setOpen(true);
-          // alert("Please log in");
-        }
-      });
+    //*********** TO STRIP*****************
+    //navigate(`/checkoutSession`{checkoutInfo});
+    const clientUsername = await getCookie('username');
+    //console.log('differenceInDays(endDate, startDate)==>', differenceInDays(endDate, startDate));
+    const checkoutInfo = {};
+    checkoutInfo.startDate = startDate.toDateString();
+    checkoutInfo.endDate = endDate.toDateString();
+    //checkoutInfo.totalDue = price * (differenceInDays(endDate, startDate) + 1) * 100;
+    checkoutInfo.hostUsername = hostName;
+    checkoutInfo.clientUsername = clientUsername;
+    checkoutInfo.location = address;
+    checkoutInfo.priceInCents = price * 100;
+    checkoutInfo.quantity = differenceInDays(endDate, startDate) + 1;
+
+    document.cookie = `checkoutInfo=` + `${JSON.stringify(checkoutInfo)}`;
+    close(),
+      axios
+        .post('api/checkout', { checkoutInfo })
+        // .then(res => {
+        //   if (res.ok) return res.json();
+        //   return res.json().then(json => Promise.reject(json));
+        // })
+        .then(data => {
+          //console.log('data.data.url==>', data.data.url);
+          window.location = data.data.url;
+        })
+        .catch(e => {
+          console.error(e.error);
+        });
   };
   if (!open) {
     return (
       <Box
         component='form'
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '20ch' }
+          '& .MuiTextField-root': { m: 1, width: '20ch' },
         }}
         noValidate
-        autoComplete='off'>
-        <div>
-          {' '}
-          <TextField
-            onChange={e => setCreateLength(e.target.value)}
-            required
-            id='outlined-required'
-            label='Length'
-            defaultValue=''
-          />
-          <TextField
-            onChange={e => setCreateDate(e.target.value)}
-            required
-            id='outlined-required'
-            label='Date'
-            defaultValue=''
-          />
-          <Button
-            onClick={handleBooking}
-            type='submit'
-            color='primary'
-            variant='contained'
-            // style={btnstyle}
-            sx={{
-              border: '.75px solid #36454F',
-              color: '#BBD1D1',
-              '&:hover': {
-                backgroundColor: '#BBD1D1',
-                color: '#F8F6F2',
-                boxShadow: 'none'
-              },
-              background: '#F8F6F2',
-              textTransform: 'none',
+        autoComplete='off'
+      >
+        <Grid container justifyContent='space-around' alignItems='center' spaceing='1' style={{ paddingTop: '-10vh' }}>
+          <Grid item md={5}>
+            <div className='startDate'>
+              <Typography sx={{ mt: 4, mb: 2 }} variant='h9' style={{ paddingTop: '5px' }} component='div'>
+                Start Date
+              </Typography>
+              <div>
+                <Calendar onChange={setStartDate} value={startDate} />
+              </div>
+            </div>
+          </Grid>
+          <Grid item md={5}>
+            <div className='endDate'>
+              <Typography sx={{ mt: 4, mb: 2 }} variant='h9' style={{ paddingTop: '5px' }} component='div'>
+                End Date
+              </Typography>
+              <div>
+                <Calendar onChange={setEndtDate} value={endDate} />
+              </div>
+            </div>
+          </Grid>
+        </Grid>
+        <Button
+          onClick={handleBooking}
+          type='submit'
+          color='primary'
+          variant='contained'
+          // style={btnstyle}
+          sx={{
+            border: '.75px solid #36454F',
+            color: '#BBD1D1',
+            '&:hover': {
+              backgroundColor: '#BBD1D1',
+              color: '#F8F6F2',
               boxShadow: 'none',
-              width: '84%',
-              marginBottom: '.5rem',
-              marginLeft: '.2rem',
-              paddingTop: '.75rem',
-              paddingBottom: '.75rem',
-              fontWeight: 'bold'
-            }}>
-            {' '}
-            Book
-          </Button>
-        </div>
+            },
+            background: '#F8F6F2',
+            textTransform: 'none',
+            boxShadow: 'none',
+            width: '84%',
+            marginBottom: '.5rem',
+            marginTop: '1vh',
+            marginLeft: '.2rem',
+            paddingTop: '.75rem',
+            paddingBottom: '.75rem',
+            fontWeight: 'bold',
+          }}
+        >
+          {' '}
+          Proceed to payment
+        </Button>
       </Box>
     );
   } else
     return (
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby='customized-dialog-title'
-        open={open}>
-        <BootstrapDialogTitle
-          id='customized-dialog-title'
-          onClose={handleClose}></BootstrapDialogTitle>
+      <BootstrapDialog onClose={close} aria-labelledby='customized-dialog-title' open={open}>
+        <BootstrapDialogTitle id='customized-dialog-title' onClose={close}></BootstrapDialogTitle>
         <DialogContent dividers>
           <Login />
         </DialogContent>
       </BootstrapDialog>
     );
 };
+
+export default requireAuth(BookingForm);

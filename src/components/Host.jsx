@@ -11,6 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import HostForm from './HostForm';
 import logo from '../../public/images/blueParq.png';
 import Dashboard from '../views/Dashboard';
+import requireAuth from './RequireAuth';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -57,7 +58,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-export default function HostPopup() {
+function HostPopup() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
 
@@ -85,3 +86,5 @@ export default function HostPopup() {
     </>
   );
 }
+
+export default requireAuth(HostPopup);

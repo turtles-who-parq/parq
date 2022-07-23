@@ -1,5 +1,5 @@
 body {
-  background-color: #F8F6F2;
+  background-color: #f8f6f2;
 }
 
 @font-face {
@@ -16,99 +16,81 @@ body {
   height: auto;
 }
 
-
 .navBar {
-  border-bottom: .75px solid #36454F;
+  border-bottom: 0.75px solid #36454f;
   /*padding-top: .5rem;
   padding-bottom: .5rem;*/
-} 
+}
 
 .topoSearch {
-  border-bottom: .75px solid #36454F;
+  border-bottom: 0.75px solid #36454f;
   position: relative;
   overflow: hidden;
-} 
+}
 
+.topoAbout {
+  // border-bottom: .75px solid #36454F;
+  background-repeat: repeat-y;
+  position: relative;
+  overflow: scroll;
+  font-family: Helvetica;
+  font-weight: 100;
+  color: #36454f;
+}
 
 img.topo {
-    position: absolute;
-    background-size: contain;
-    top: -350px;
-    margin: auto;
-    opacity: 25%;
-    z-index: 1;
+  position: absolute;
+  background-size: contain;
+  opacity: 80%;
+  max-width: 100%;
+  // max-height: 100%;
+  top: -1150px;
+  margin: auto;
+  z-index: 1;
 }
 
 .landingSearch {
   z-index: 5;
   width: 35%;
-  background-color: #F8F6F2;
+  background-color: #f8f6f2;
   position: relative;
   /*margin: auto;*/
   padding: 0%;
 
-top: 48%;
-transform: translateY(-50%);
--ms-transform: translateY(-50%);
--moz-transform: translateY(-50%);
--webkit-transform: translateY(-50%);
--o-transform: translateY(-50%);
+  top: 48%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
 
-left: 50%;
-transform: translateX(-50%);
--ms-transform: translateX(-50%);
--moz-transform: translateX(-50%);
--webkit-transform: translateX(-50%);
--o-transform: translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
 }
 
 .filterBar {
-  border-bottom: .75px solid #36454F;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+  border-bottom: 0.75px solid #36454f;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   display: flex;
 }
 
 .Search {
-  background-color: #F8F6F2;
+  background-color: #f8f6f2;
 }
 
-.leftMap, .leftArch {
-  border-right: .75px solid #36454F;
+.leftMap,
+.leftArch {
+  border-right: 0.75px solid #36454f;
 }
 
 div.css-ijx2sl {
- margin: 0;
- border-radius: 15px;
-}
-
-.leftArchText {
-  font-family: Helvetica;
-  font-weight: 100;
-  color: #36454F;
-  opacity: 80%;
-  background-color: #F8F6F2;
-  border: 0;
-  font-size: x-large;
-  z-index: 3;
-  margin-left: 40%;
-  margin-top: 150px;
-  position: fixed;
-
-}
-
-.rightArchText {
-  font-family: Helvetica;
-  font-weight: 100;
-  color: #36454F;
-  opacity: 80%;
-  font-size: x-large;
-  z-index: 3;
-  margin-left: 5%;
-  margin-top: 150px;
-  position: fixed;
-  background-color: #F8F6F2;
-  border: 0;
+  margin: 0;
+  border-radius: 15px;
 }
 
 img.archway {
@@ -124,12 +106,12 @@ img.archway {
   width: 340px;
   height: 160px;
   border-radius: 20px;
-  background: #B9D8D8;
-  border: .75px solid #36454F;
+  background: #eabe57;
+  border: 0.75px solid #36454f;
   padding: 30px 30px 30px 30px;
-  overflow: hidden; 
+  overflow: hidden;
   margin-top: 1rem;
-  margin-left: .5rem; 
+  margin-left: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,14 +122,14 @@ img.archway {
 
 .parkingSpotTileOutter:hover {
   transform: translateY(-2px);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .spotAddress {
   font-family: Helvetica;
   font-weight: bold;
   font-size: medium;
-  color:#F8F6F2;
+  color: #f8f6f2;
   text-align: center;
   z-index: 2;
 }
@@ -164,8 +146,180 @@ img.archway {
 
 .rightTiles {
   scroll-behavior: smooth;
-  overflow-y: scroll; 
+  overflow-y: scroll;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: white;
+  border: 1px solid rgb(160, 160, 150);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+
+  &--doubleView {
+    width: 700px;
+
+    .react-calendar__viewContainer {
+      display: flex;
+      margin: -0.5em;
+
+      > * {
+        width: 50%;
+        margin: 0.5em;
+      }
+    }
+  }
+
+  &,
+  & *,
+  & *:before,
+  & *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  button {
+    margin: 0;
+    border: 0;
+    outline: none;
+
+    &:enabled {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__navigation {
+    display: flex;
+    height: 44px;
+    margin-bottom: 1em;
+
+    button {
+      min-width: 44px;
+      background: none;
+
+      &:disabled {
+        background-color: rgb(240, 240, 240);
+      }
+
+      &:enabled {
+        &:hover,
+        &:focus {
+          background-color: rgb(230, 230, 230);
+        }
+      }
+    }
+  }
+
+  &__month-view {
+    &__weekdays {
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 0.75em;
+
+      &__weekday {
+        padding: 0.5em;
+      }
+    }
+
+    &__weekNumbers {
+      .react-calendar__tile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75em;
+        font-weight: bold;
+      }
+    }
+
+    &__days {
+      &__day {
+        &--weekend {
+          color: rgb(209, 0, 0);
+        }
+
+        &--neighboringMonth {
+          color: rgb(117, 117, 117);
+        }
+      }
+    }
+  }
+
+  &__year-view,
+  &__decade-view,
+  &__century-view {
+    .react-calendar__tile {
+      padding: 2em 0.5em;
+    }
+  }
+
+  &__tile {
+    max-width: 100%;
+    padding: 10px 6.6667px;
+    background: none;
+    text-align: center;
+    line-height: 16px;
+
+    &:disabled {
+      background-color: rgb(240, 240, 240);
+    }
+
+    &:enabled {
+      &:hover,
+      &:focus {
+        background-color: rgb(230, 230, 230);
+      }
+    }
+
+    &--now {
+      $bgcolor: lighten(rgb(220, 220, 0), 30%);
+      background: $bgcolor;
+
+      &:enabled {
+        &:hover,
+        &:focus {
+          background: lighten($bgcolor, 10%);
+        }
+      }
+    }
+
+    &--hasActive {
+      $bgcolor: lighten(rgb(0, 110, 220), 30%);
+      background: $bgcolor;
+
+      &:enabled {
+        &:hover,
+        &:focus {
+          background: lighten($bgcolor, 10%);
+        }
+      }
+    }
+
+    &--active {
+      $bgcolor: rgb(0, 110, 220);
+      background: $bgcolor;
+      color: white;
+
+      &:enabled {
+        &:hover,
+        &:focus {
+          background: lighten($bgcolor, 10%);
+        }
+      }
+    }
+  }
+
+  &--selectRange {
+    .react-calendar__tile {
+      &--hover {
+        background-color: rgb(230, 230, 230);
+      }
+    }
+  }
 }

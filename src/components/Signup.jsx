@@ -4,23 +4,20 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { capitalizeFirstLetters } from './Login';
 
-export const Signup = () => {
+export const Signup = ({ setAuth, setUser, setMode }) => {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  
-  const [loggedIn, setLoggedIn] = useState(false);
+
   const navigate = useNavigate();
-  
+
   const handleSignup = async e => {
-    // const firstname = createfirstname;
-    // const lastname = createLastname;
-    // const username = createUsername;
-    // const password = createPassword;
+
     e.preventDefault();
-   
+
     let response;
     try {
       response = await axios.post('/api/users/signup', {
@@ -29,9 +26,12 @@ export const Signup = () => {
         username,
         password,
       });
-      console.log('response ==>', response.data);
+
       // if (res.status === 201) {
-      setLoggedIn(true);
+      const name = capitalizeFirstLetters(response.data.firstname + ' ' + response.data.lastname);
+      setUser(name);
+      setAuth(true);
+      setMode('light');
       navigate('/dashboard');
       // }
     } catch (e) {
@@ -79,16 +79,9 @@ export const Signup = () => {
           }}
         >
           {' '}
-          create account
+          Create Account
         </Button>
       </div>
     </Box>
   );
 };
-
-
-
-
-
-
-

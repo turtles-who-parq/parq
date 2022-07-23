@@ -36,7 +36,7 @@ const BootstrapDialogTitle = props => {
       }}
       {...other}>
       <div className='closeIcon' sx={{ padding: '5px' }}>
-        welcome to parq
+        Welcome to Parq
       </div>
       {children}
       {onClose ? (
@@ -61,7 +61,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-export default function LoginPopup() {
+export default function LoginPopup({ setAuth, setUser, setMode }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -72,8 +72,8 @@ export default function LoginPopup() {
   };
 
   return (
-    <div>
-      <Button onClick={handleClickOpen} color='inherit' sx={{ flexGrow: 1 }}>
+    <>
+      <Button onClick={handleClickOpen} variant='contained' color='secondary' sx={{ flexGrow: 0 }}>
         <Typography
           variant='h6'
           component='div'
@@ -82,9 +82,9 @@ export default function LoginPopup() {
             fontWeight: 'light',
             color: '#36454F'
           }}>
-          log In
+          Login
         </Typography>
-      </Button>
+      </Button> 
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby='customized-dialog-title'
@@ -93,9 +93,9 @@ export default function LoginPopup() {
           id='customized-dialog-title'
           onClose={handleClose}></BootstrapDialogTitle>
         <DialogContent dividers>
-          <Login handleClose={handleClose} />
+          <Login setAuth={setAuth} setUser={setUser} setMode={setMode} handleClose />
         </DialogContent>
       </BootstrapDialog>
-    </div>
+    </>
   );
 }

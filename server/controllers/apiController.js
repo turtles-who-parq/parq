@@ -1,15 +1,22 @@
+require('dotenv').config();
 const { Location, Booking } = require('../models/userModel');
 
 const apiController = {};
- 
+
+// Provide the GOOGLE_API_KEY to the frontend
+apiController.getKey = (req, res, next) => {
+  res.locals.key = process.env.GOOGLE_API_KEY;
+  return next();
+};
+
 // "Create location" controller - Used for adding a listing
 apiController.createLocation = async (req, res, next) => {
   // When host adds listing, create new location in the db
   try {
     const hostName = res.locals.username;
     const { address, price, options, size } = req.body;
-    const coordinates = res.locals.data;
-    console.log(coordinates);
+    const coordinates = res.locals.coordinates;
+
     //get coords for api
     await Location.create({
       hostName,
@@ -46,14 +53,12 @@ apiController.getLocation = (req, res, next) => {
       });
     }
     res.locals.location = docs;
-    console.log(docs);
     return next();
   });
 };
 
 //"get all locations" controller
 apiController.getAllLocation = (req, res, next) => {
-  //get all locations
   Location.find({}, (err, listings) => {
     if (err) {
       return next({
@@ -63,12 +68,9 @@ apiController.getAllLocation = (req, res, next) => {
         },
       });
     }
-    res.locals.result = {
-      lng: res.locals.data.lng,
-      lat: res.locals.data.lat,
-      listings,
-    };
-    // res.locals.location = docs;
+
+    res.locals.allListings = listings;
+
     return next();
   });
 };
@@ -83,8 +85,6 @@ apiController.createBooking = (req, res, next) => {
   //get input from user request (TBD)
   const username = res.locals.username;
   const { hostUsername, bookingDate, length, location } = req.body;
-  console.log('username:', username);
-  console.log('req', req.body);
   Booking.create(
     {
       clientUsername: username,
@@ -96,9 +96,9 @@ apiController.createBooking = (req, res, next) => {
     (err, docs) => {
       if (err) {
         return next({
-          log: `apiController.getLocation error :${err}`,
+          log: `apiController.createBooking error :${err}`,
           message: {
-            err: 'Error occured in getLocation',
+            err: 'Error occured in createBookingn',
           },
         });
       }
@@ -112,7 +112,7 @@ apiController.createBooking = (req, res, next) => {
 apiController.getBooking = async (req, res, next) => {
   // find booking that was stored in database
   const { username } = req.body;
-  await Booking.findOne({ clientUsername: username }).then((result) => {
+  await Booking.findOne({ clientUsername: username }).then(result => {
     if (result) {
       console.log('Booking found in database!');
       res.locals.booking = result;

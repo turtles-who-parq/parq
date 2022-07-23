@@ -9,7 +9,7 @@ const PORT = process.env.PORT;
 const app = express();
 const apiRouter = require('./routes/api');
 const userRouter = require('./routes/user');
-
+const checkoutRouter = require('./routes/checkout');
 
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));
@@ -28,19 +28,20 @@ mongoose
   .then(() => {
     console.log('Connected to Mongo!');
   })
-  .catch((err) => {
+  .catch(err => {
     console.error('Error connecting to Mongo', err);
   });
+
+// routers
+app.use('/api/users', userRouter);
+app.use('/api', apiRouter);
+app.use('/api/checkout', checkoutRouter);
 
 // Don't serve static files or homepage from Dev Server
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '../dist')));
   app.use('/', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../dist/index.html')));
 }
-
-// routers
-app.use('/api/users', userRouter);
-app.use('/api', apiRouter);
 
 // 404 Catch-All
 app.use('*', (req, res) => res.status(404).send('Not Found'));

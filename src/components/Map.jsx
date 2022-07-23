@@ -1,47 +1,43 @@
-import React from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import React, { useState } from 'react';
+import { GoogleMap, LoadScript, Marker, DirectionsRenderer } from '@react-google-maps/api';
 import { mapStyles } from '../../public/styles/mapsStyles';
 
 const containerStyle = {
   width: '100%',
   height: '100%',
-  float: 'left'
+  float: 'left',
 };
 
 const options = {
-  styles: mapStyles
+  styles: mapStyles,
 };
 
-export default function Map({ data, zoom }) {
-  const center = {
-    lat: data.lat,
-    lng: data.lng
-  };
-  const listings = data.listings;
+export default function Map({ home, zoom, homeMarker, listings, API_KEY }) {
+  const [directionsResponse, setDirectionsResponse] = useState(null);
 
-  const markerElems = listings.map((listings, i) => {
+  const markerElems = listings.map((listing, i) => {
     const position = {
-      lat: listings.coordinates.lat,
-      lng: listings.coordinates.lng
+      lat: listing.coordinates.lat,
+      lng: listing.coordinates.lng,
     };
-
-    const onMarkerClick = e => {
-      console.log(listings.address);
-    };
-
-    return <Marker onClick={onMarkerClick} key={i} position={position} />;
+    return <Marker key={i} position={position} />;
   });
 
-  return (
-    <LoadScript googleMapsApiKey={process.env.GOOGLE_API_KEY}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={zoom}
-        options={options}>
-        {markerElems}
-        <></>
-      </GoogleMap>
-    </LoadScript>
-  );
+  if (API_KEY)
+    return (
+      <LoadScript googleMapsApiKey={API_KEY}>
+        <GoogleMap mapContainerStyle={containerStyle} center={home} zoom={zoom} options={options}>
+          {homeMarker && (
+            <Marker
+              position={home}
+              icon={{
+                url: 'http://maps.google.com/mapfiles/kml/pal3/icon23.png',
+              }}
+            />
+          )}
+          {markerElems}
+          {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+        </GoogleMap>
+      </LoadScript>
+    );
 }
