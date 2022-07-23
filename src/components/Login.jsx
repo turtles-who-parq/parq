@@ -7,27 +7,22 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Signup } from './Signup.jsx';
 
-function capitalizeFirstLetters(str) {
-
+export function capitalizeFirstLetters(str) {
   //normalize all letters to lowercase
   str = str.toLowerCase();
-
   //split the above string into an array of strings 
   //whenever a blank space is encountered
-
   const arr = str.split(' ');
-
   //loop through each element of the array and capitalize the first letter.
   for (let i = 0; i < arr.length; i++) {
     arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
   }
-
   //Join all the elements of the array back into a string 
   //using a blankspace as a separator 
   return arr.join(' ');
 }
 
-export const Login = ({ setAuth, setUser }) => {
+export const Login = ({ setAuth, setUser, setMode }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [signUp, setSignUp] = useState(false);
@@ -37,16 +32,16 @@ export const Login = ({ setAuth, setUser }) => {
   const handleLogin = async e => {
 
     e.preventDefault();
-    console.log('handleLogin post called');
     let response;
     try {
       response = await axios.post('/api/users/login', {
         username,
         password,
       });
-      console.log('response==>', response);
-      setUser(response.data.firstname + ' ' + response.data.lastname);
+      const name = capitalizeFirstLetters(response.firstname + ' ' + response.lastname);
+      setUser(name);
       setAuth(true);
+      setMode(response.mode);
       navigate('/dashboard');
     } catch (e) {
       console.log('handleLogin error==>', e);
@@ -69,7 +64,7 @@ export const Login = ({ setAuth, setUser }) => {
         autoComplete='off'
       >
         <div style={{ display: 'grid', gridTemplateColumns: '1fr' }}>
-          <TextField onChange={e => setUsername(capitalizeFirstLetters(e.target.value))} required id='outlined-required' label='username' defaultValue='' />
+          <TextField onChange={e => setUsername(e.target.value)} required id='outlined-required' label='username' defaultValue='' />
           <TextField onChange={e => setPassword(e.target.value)} required id='outlined-password-input' label='password' type='password' autoComplete='current-password' sx={{}} />
           <Button
             onClick={handleLogin}
@@ -130,5 +125,5 @@ export const Login = ({ setAuth, setUser }) => {
         </div>
       </Box>
     );
-  } else return <Signup setAuth={setAuth} setUser={setUser} />;
+  } else return <Signup setAuth={setAuth} setUser={setUser} setMode={setMode} />;
 };

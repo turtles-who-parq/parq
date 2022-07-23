@@ -16,7 +16,7 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Tooltip from '@mui/material/Tooltip';
 
-export default function Dashboard() {
+export default function Dashboard({ auth }) {
   const [address, setAddress] = useState('');
   const [zoom, setZoom] = useState(5);
   const [home, setHome] = useState({
@@ -37,7 +37,6 @@ export default function Dashboard() {
     // Get GOOGLE_API_KEY from backend
     axios.get('/api/key').then(response => {
       setAPI_KEY(response.data);
-      console.log('From Dashboard, API_KEY ==> ', response.data);
     });
   }, []);
   const props = {
@@ -52,15 +51,15 @@ export default function Dashboard() {
     setDistance(event.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async () => {
     try {
-      let { data: coordinates } = await axios.post('/api/coordinates', { address: address });
+      const { data: coordinates } = await axios.post('/api/coordinates', { address: address });
       setHome(coordinates);
       spotFilter();
       setZoom(15);
       setHomemarker(true);
     } catch (err) {
-      console.log(`handleSubmit error==>`, err.response);
+      console.log('handleSubmit error ==> ', err.response);
     }
   };
 
@@ -83,9 +82,9 @@ export default function Dashboard() {
 
       setListings(listingsArray);
 
-      setSpotElems(listingsArray.map((e, i) => <ParkingSpotTest key={i} info={e} {...props} />)); // Waiting for all the requests to get resolved.
+      setSpotElems(listingsArray.map((e, i) => <ParkingSpotTest auth={auth} key={i} info={e} {...props} />)); // Waiting for all the requests to get resolved.
     } catch (e) {
-      console.log('spotFilter erro==>', e);
+      console.log('spotFilter erro ==> ', e);
     }
   }
 

@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { BookingForm } from './BookingForm.jsx';
+import BookingForm from './BookingForm';
 import logo from '../../public/images/blueParq.png';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({

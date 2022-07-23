@@ -20,7 +20,6 @@ export default function HostForm() {
     // const size = size;
 
     e.preventDefault();
-    console.log('handleHost post called');
     let response;
     try {
       response = await axios.post('/api/location', {
@@ -29,8 +28,6 @@ export default function HostForm() {
         options,
         size,
       });
-
-      console.log('response from axios:', response);
       if (response.status === 200) {
         alert('Location saved');
         navigate({

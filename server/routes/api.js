@@ -10,7 +10,6 @@ const googleRequestController = require('../controllers/googleController');
 router.get('/key', apiController.getKey, (req, res) => res.status(200).json(res.locals.key));
 
 router.post('/coordinates', googleRequestController.mapLocation, (req, res) => {
-  console.log('res.locals.coordinates==>', res.locals.coordinates);
   return res.status(200).json(res.locals.coordinates);
 });
 

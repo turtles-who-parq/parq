@@ -20,6 +20,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  mode: {
+    type: String,
+    required: true
+  }
   // token: { type: String },
 });
 
