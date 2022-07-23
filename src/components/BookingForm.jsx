@@ -104,7 +104,7 @@ export const BookingForm = ({ hostName, address, price, close }) => {
     const checkoutInfo = {};
     checkoutInfo.startDate = startDate.toDateString();
     checkoutInfo.endDate = endDate.toDateString();
-    checkoutInfo.totalDue = price * (differenceInDays(endDate, startDate) + 1);
+    checkoutInfo.totalDue = price * (differenceInDays(endDate, startDate) + 1) * 100;
     checkoutInfo.hostUsername = hostName;
     checkoutInfo.clientUsername = clientUsername;
     checkoutInfo.location = address;
