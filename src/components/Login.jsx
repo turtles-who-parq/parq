@@ -29,23 +29,24 @@ export const Login = ({ setAuth, setUser, setMode }) => {
 
   const navigate = useNavigate();
 
-  const handleLogin = async e => {
+  const handleLogin = e => {
 
     e.preventDefault();
-    let response;
-    try {
-      response = await axios.post('/api/users/login', {
-        username,
-        password,
-      });
-      const name = capitalizeFirstLetters(response.firstname + ' ' + response.lastname);
-      setUser(name);
-      setAuth(true);
-      setMode(response.mode);
-      navigate('/dashboard');
-    } catch (e) {
-      console.log('handleLogin error==>', e);
-    }
+    
+    axios.post('/api/users/login', {
+      username,
+      password,
+    })
+      .then(response => {
+        console.log(response);
+        const name = capitalizeFirstLetters(response.data.firstname + ' ' + response.data.lastname);
+        console.log('User ==> ', name);
+        setUser(name);
+        setAuth(true);
+        setMode(response.mode);
+        navigate('/dashboard');
+      })
+      .catch(e => console.log('handleLogin error==>', e));
   };
 
   const signupPopup = e => {

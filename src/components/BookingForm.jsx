@@ -31,7 +31,7 @@ const BootstrapDialogTitle = props => {
       {onClose ? (
         <IconButton
           aria-label='close'
-          onClick={onClose}
+          onClick={handleClose}
           sx={{
             position: 'absolute',
             right: 8,
@@ -74,24 +74,18 @@ const BookingForm = ({ hostName, address }) => {
           bookingDate: date,
           length: length,
           location: address
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('access_token')}`
-          }
         }
       )
       .then(res => {
         if (res.status === 200) {
           alert('Booking has been created');
         }
+        setOpen(false);
       })
       .catch(err => {
         console.log(err.response.status);
-        if (err.response.status === 403) {
-          setOpen(true);
-          // alert("Please log in");
-        }
+        setOpen(false);
+        alert('Unable to create booking');
       });
   };
   if (!open) {

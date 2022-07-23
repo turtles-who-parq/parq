@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
-const Logout = () => {
-  const clearToken = async () => {
-    await axios.get('/api/users/logout');
-  };
-  clearToken();
+const Logout = ({setReload}) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const clearToken = async () => {
+      await axios.get('/api/users/logout');
+    };
+    clearToken();
+    setReload(true);
+    navigate('/');
+  }, []);
   return (
-    <Navigate to='/' replace={true} />
+    <></>
   );
-}
+};
 
 export default Logout;

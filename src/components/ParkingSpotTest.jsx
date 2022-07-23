@@ -56,7 +56,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-export default function ParkingSpotTest({ info, isVisible }) {
+export default function ParkingSpotTest({ info, auth, setReload }) {
   const { address, options, price, size, hostName } = info;
   const [open, setOpen] = useState(false);
   const onSpotClick = () => {
@@ -111,7 +111,7 @@ export default function ParkingSpotTest({ info, isVisible }) {
                 </div>
               )}
               {/* ${price}/hr | {options} | {size} cars */}
-              <BookingForm hostName={hostName} address={address} />
+              <BookingForm auth={auth} setReload={setReload} hostName={hostName} address={address} />
             </DialogContent>
           </BootstrapDialog>
         </div>
